@@ -1,0 +1,24 @@
+<div class="p-4">
+  <h5 class="mb-3">Add a new Flashcard</h5>
+  <form [formGroup]="flashcardForm">
+    <input
+      class="form-control mb-3"
+      placeholder="title"
+      formControlName="title"
+    />
+    <input
+      class="form-control mb-3"
+      placeholder="answer"
+      formControlName="answer"
+    />
+
+    <ng-select
+      class="mb-3"
+      [items]="categories"
+      placeholder="Category"
+      formControlName="category"
+    ></ng-select>
+
+    <button class="btn btn-primary" (click)="add()">Add</button>
+  </form>
+</div>
