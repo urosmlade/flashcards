@@ -21,6 +21,8 @@ import { FlashcardsService } from './services/flashcards.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { CardComponent } from './card/card.component';
+import { CardDetailsComponent } from './card-details/card-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -45,6 +47,8 @@ const routes: Routes = [
     ForgotPasswordComponent,
     VerifyEmailComponent,
     AddComponent,
+    CardComponent,
+    CardDetailsComponent,
   ],
   imports: [
     BrowserModule,

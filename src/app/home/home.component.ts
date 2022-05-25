@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AddComponent } from '../add/add.component';
-import { AuthService } from '../services/auth.service';
 import { FlashcardsService } from '../services/flashcards.service';
 
 @Component({
@@ -13,8 +12,7 @@ import { FlashcardsService } from '../services/flashcards.service';
 export class HomeComponent implements OnInit {
   readonly flashcards$: Observable<any>;
   constructor(
-    public authService: AuthService,
-    private flashcardService: FlashcardsService,
+    private readonly flashcardService: FlashcardsService,
     private readonly modal: NgbModal
   ) {
     this.flashcards$ = this.flashcardService.getFlashcard();
@@ -23,6 +21,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   openAddFlashcardModal() {
-    const modalRef = this.modal.open(AddComponent);
+    this.modal.open(AddComponent);
   }
 }
