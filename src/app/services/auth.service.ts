@@ -43,7 +43,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['home']);
+          this.router.navigate(['flashcards']);
         });
         this.setUserData(result.user);
       })
@@ -93,7 +93,7 @@ export class AuthService {
   googleAuth() {
     return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       if (res) {
-        this.router.navigate(['home']);
+        this.router.navigate(['flashcards']);
       }
     });
   }
@@ -103,7 +103,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['home']);
+          this.router.navigate(['flashcards']);
         });
         this.setUserData(result.user);
       })

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Flashcard } from '../flashcard.model';
+import { Flashcard } from '../../flashcard.model';
 
 @Component({
   selector: 'app-card-details',

@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { switchMap, take } from 'rxjs';
-import { Flashcard } from '../flashcard.model';
-import { AuthService } from '../services/auth.service';
-import { FlashcardsService } from '../services/flashcards.service';
+import { Flashcard } from '../../flashcard.model';
+import { AuthService } from '../../services/auth.service';
+import { FlashcardsService } from '../../services/flashcards.service';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss'],
+  selector: 'app-add-modal',
+  templateUrl: './add-modal.component.html',
+  styleUrls: ['./add-modal.component.scss'],
 })
-export class AddComponent {
+export class AddModalComponent {
   readonly flashcardForm: FormGroup;
 
   readonly categories: string[];

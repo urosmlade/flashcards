@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Flashcard } from '../../flashcard.model';
 import { CardDetailsComponent } from '../card-details/card-details.component';
-import { Flashcard } from '../flashcard.model';
 
 @Component({
   selector: 'app-card',

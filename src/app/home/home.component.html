@@ -1,6 +1,4 @@
-<div class="d-flex flex-wrap">
-  <div *ngFor="let flashcard of flashcards$ | async">
-    <app-card [flashcard]="flashcard"></app-card>
-  </div>
+<div class="container">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
 </div>
-<button class="btn btn-primary" (click)="openAddFlashcardModal()">+</button>
