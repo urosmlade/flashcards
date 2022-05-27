@@ -7,12 +7,19 @@
       </p>
     </div>
   </div>
-  <div
-    class="col-7"
-    *ngIf="selectedCategoryId$ | async; else noCategorySelected"
-  >
-    <app-list [flashcards$]="flashcards$"></app-list>
+  <div class="col-7">
+    <div *ngIf="selectedCategoryId$ | async; else noCategorySelected">
+      <div *ngIf="isCategoryNotEmpty$ | async; else emptyCategory">
+        <app-list [flashcards$]="flashcards$"></app-list>
+      </div>
+    </div>
   </div>
 </div>
 
-<ng-template #noCategorySelected></ng-template>
+<ng-template #noCategorySelected>
+  <p>Please select a category to show flashcards.</p>
+</ng-template>
+
+<ng-template #emptyCategory>
+  <p>There are no flashcards in this category.</p>
+</ng-template>

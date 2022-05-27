@@ -4,6 +4,7 @@ import {
   combineLatest,
   map,
   Observable,
+  shareReplay,
   switchMap
 } from 'rxjs';
 import { Flashcard } from 'src/app/flashcard.model';
@@ -21,6 +22,8 @@ export class CategoryComponent implements OnInit {
   readonly flashcards$: Observable<Flashcard[]>;
 
   readonly selectedCategoryId$ = new BehaviorSubject<string>('');
+
+  readonly isCategoryNotEmpty$: Observable<boolean>;
 
   constructor(
     private readonly flashcardsService: FlashcardsService,
@@ -45,7 +48,12 @@ export class CategoryComponent implements OnInit {
 
         return combineLatest([publicF, privateF]);
       }),
-      map(([publicF, privateF]) => [...publicF, ...privateF])
+      map(([publicF, privateF]) => [...publicF, ...privateF]),
+      shareReplay(1)
+    );
+
+    this.isCategoryNotEmpty$ = this.flashcards$.pipe(
+      map((flashcards) => flashcards.length !== 0)
     );
   }
 
