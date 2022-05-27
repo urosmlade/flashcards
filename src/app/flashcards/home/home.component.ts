@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, map, Observable, switchMap } from 'rxjs';
 import { Flashcard } from 'src/app/flashcard.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
 
 @Component({
@@ -11,10 +12,24 @@ import { FlashcardsService } from 'src/app/services/flashcards.service';
 export class HomeComponent implements OnInit {
   readonly flashcards$: Observable<Flashcard[]>;
 
-  constructor(private readonly flashcardService: FlashcardsService) {
-    this.flashcards$ = this.flashcardService.getFlashcard();
+  constructor(
+    private readonly flashcardService: FlashcardsService,
+    private readonly authService: AuthService
+  ) {
+    this.flashcards$ = this.authService.uid$.pipe(
+      switchMap((id) =>
+        combineLatest([
+          this.flashcardService.getPublicFlashcards(),
+          this.flashcardService.getPrivateFlashcardsForLoggedInUser(id),
+        ])
+      ),
+      map(([publicFlashcards, privateFlashcards]) => [
+        ...publicFlashcards,
+        ...privateFlashcards,
+      ])
+    );
 
-    this.flashcards$.subscribe((a) => console.log(a));
+    // this.flashcards$.subscribe((a) => console.log(a));
   }
 
   ngOnInit(): void {}

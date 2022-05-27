@@ -2,24 +2,93 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { Flashcard } from '../flashcard.model';
+import { Category } from '../flashcards/category.model';
 import { Group } from '../flashcards/group.model';
 
 @Injectable()
 export class FlashcardsService {
   constructor(private readonly db: AngularFirestore) {}
 
-  getFlashcard(): Observable<Flashcard[]> {
+  //home
+  // javne sve kartice
+  // privatne kartice za prijavljenog korisnika
+
+  // categories
+  // javne kartice po kategoriji
+  // privatne kartice za prijavljenog korisnika
+
+  // profil
+  // sve kartice za prijavljenog korisnika
+
+  // HOME PAGE
+  getPublicFlashcards(): Observable<Flashcard[]> {
     return this.db
-      .collection('Flashcards')
+      .collection('Flashcards', (q) => q.where('private', '==', false))
       .valueChanges()
       .pipe(
         map((flashcards: any[]) =>
-          flashcards.map((flashcard) =>
-            FlashcardsService.toFlashcard(flashcard)
+          flashcards.map((flaschard) =>
+            FlashcardsService.toFlashcard(flaschard)
           )
         )
       );
   }
+
+  getPrivateFlashcardsForLoggedInUser(userId: string): Observable<Flashcard[]> {
+    return this.db
+      .collection('Flashcards', (q) =>
+        q.where('author_id', '==', userId).where('private', '==', true)
+      )
+      .valueChanges()
+      .pipe(
+        map((flashcards: any[]) =>
+          flashcards.map((flaschard) =>
+            FlashcardsService.toFlashcard(flaschard)
+          )
+        )
+      );
+  }
+
+  // CATEGORIES
+  getPublicFlashcardsForSelectedCategory(
+    categoryId: string
+  ): Observable<Flashcard[]> {
+    return this.db
+      .collection('Flashcards', (q) =>
+        q.where('category', '==', categoryId).where('private', '==', false)
+      )
+      .valueChanges()
+      .pipe(
+        map((flashcards: any[]) =>
+          flashcards.map((flaschard) =>
+            FlashcardsService.toFlashcard(flaschard)
+          )
+        )
+      );
+  }
+
+  getPrivateFlashcardsForSelectedCategoryByLoggedInUser(
+    categoryId: string,
+    userId: string
+  ): Observable<Flashcard[]> {
+    return this.db
+      .collection('Flashcards', (q) =>
+        q
+          .where('category', '==', categoryId)
+          .where('author_id', '==', userId)
+          .where('private', '==', true)
+      )
+      .valueChanges()
+      .pipe(
+        map((flashcards: any[]) =>
+          flashcards.map((flaschard) =>
+            FlashcardsService.toFlashcard(flaschard)
+          )
+        )
+      );
+  }
+
+  // PROFILE
 
   getFlashcardsForLoggedInUser(userId: string): Observable<Flashcard[]> {
     return this.db
@@ -27,15 +96,14 @@ export class FlashcardsService {
       .valueChanges()
       .pipe(
         map((flashcards: any[]) =>
-          flashcards.map((flashcard) =>
-            FlashcardsService.toFlashcard(flashcard)
+          flashcards.map((flaschard) =>
+            FlashcardsService.toFlashcard(flaschard)
           )
         )
       );
   }
 
   addFlashcard(flashcard: Flashcard) {
-    console.log(flashcard);
     const f = {
       title: flashcard.title,
       answer: flashcard.answer,
@@ -56,6 +124,17 @@ export class FlashcardsService {
       .pipe(
         map((groups: any[]) =>
           groups.map((group) => FlashcardsService.toGroup(group))
+        )
+      );
+  }
+
+  getCategories() {
+    return this.db
+      .collection('Categories')
+      .valueChanges()
+      .pipe(
+        map((categories: any[]) =>
+          categories.map((category) => FlashcardsService.toCategory(category))
         )
       );
   }
@@ -84,5 +163,9 @@ export class FlashcardsService {
 
   private static toGroup(obj: any): Group {
     return new Group(obj['title'], obj['author_id']);
+  }
+
+  private static toCategory(obj: any): Category {
+    return new Category(obj['id'], obj['title']);
   }
 }
