@@ -31,7 +31,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'flashcards',
+        path: '',
         loadChildren: async () =>
           (await import('src/app/flashcards/flashcards.module'))
             .FlashcardsModule,

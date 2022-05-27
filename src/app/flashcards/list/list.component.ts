@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FlashcardsService } from 'src/app/services/flashcards.service';
+import { Flashcard } from 'src/app/flashcard.model';
 
 @Component({
   selector: 'app-list',
@@ -9,12 +8,8 @@ import { FlashcardsService } from 'src/app/services/flashcards.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  readonly flashcards$: Observable<any>;
-  constructor(
-    private readonly flashcardService: FlashcardsService,
-    private readonly modal: NgbModal
-  ) {
-    this.flashcards$ = this.flashcardService.getFlashcard();
-  }
+  @Input() flashcards$?: Observable<Flashcard[]>;
+
+  constructor() {}
   ngOnInit(): void {}
 }

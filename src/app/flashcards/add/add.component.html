@@ -1,5 +1,26 @@
-<div class="d-flex justify-content-end">
-  <button class="btn btn-primary" (click)="openAddFlashcardModal()">
-    + Add
-  </button>
+<p class="mb-5">Here you can add a new group or you can create a new flashcard.</p>
+<div class="row">
+  <div class="col-2">
+    <button class="btn btn-outline-primary mb-3" (click)="showAddGroupForm()">
+      New group
+    </button>
+    <button class="btn btn-outline-primary" (click)="showAddFlashcardForm()">
+      New flashcard
+    </button>
+  </div>
+  <div class="col-10">
+    <div *ngIf="addGroup$ | async; then addGroup; else addFlashcard"></div>
+  </div>
 </div>
+
+<ng-template #addGroup>
+  <h5>Add a new Group</h5>
+  <p>
+    Use groups to group the flashcards. Every flashcard needs to be in a group.
+  </p>
+  <app-add-group></app-add-group>
+</ng-template>
+<ng-template #addFlashcard>
+  <h5>Add a new Flashcard</h5>
+  <app-add-flashcard></app-add-flashcard>
+</ng-template>

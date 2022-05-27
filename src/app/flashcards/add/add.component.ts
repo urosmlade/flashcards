@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddModalComponent } from '../add-modal/add-modal.component';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { FlashcardsService } from 'src/app/services/flashcards.service';
+import { Group } from '../group.model';
 
 @Component({
   selector: 'app-add',
@@ -8,9 +11,31 @@ import { AddModalComponent } from '../add-modal/add-modal.component';
   styleUrls: ['./add.component.scss'],
 })
 export class AddComponent {
-  constructor(private readonly modal: NgbModal) {}
+  readonly groups$: Observable<Group[]>;
 
-  openAddFlashcardModal() {
-    this.modal.open(AddModalComponent);
+  readonly addGroup$: Observable<boolean>;
+  readonly addFlashcard$: Observable<boolean>;
+
+  constructor(
+    private readonly modal: NgbModal,
+    private readonly flashcardsService: FlashcardsService,
+    private readonly authService: AuthService
+  ) {
+    this.groups$ = this.authService.uid$.pipe(
+      switchMap((id) => this.flashcardsService.getGroups(id))
+    );
+
+    this.addGroup$ = this.addGroupSubject$.asObservable();
+    this.addFlashcard$ = this.addGroupSubject$.pipe(map((a) => !a));
   }
+
+  showAddGroupForm() {
+    this.addGroupSubject$.next(true);
+  }
+
+  showAddFlashcardForm() {
+    this.addGroupSubject$.next(false);
+  }
+
+  private readonly addGroupSubject$ = new BehaviorSubject<boolean>(true);
 }

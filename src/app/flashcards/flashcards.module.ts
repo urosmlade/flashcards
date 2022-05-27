@@ -4,16 +4,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AddModalComponent } from './add-modal/add-modal.component';
+import { AddFlashcardComponent } from './add-flashcard/add-flashcard.component';
+import { AddGroupComponent } from './add-group/add-group.component';
 import { AddComponent } from './add/add.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
 import { CardComponent } from './card/card.component';
+import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: ListComponent,
+    path: 'flashcards',
+    component: HomeComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  {
+    path: 'add',
+    component: AddComponent,
   },
 ];
 
@@ -23,7 +34,10 @@ const routes: Routes = [
     CardComponent,
     CardDetailsComponent,
     AddComponent,
-    AddModalComponent,
+    ProfileComponent,
+    HomeComponent,
+    AddGroupComponent,
+    AddFlashcardComponent,
   ],
   imports: [
     CommonModule,

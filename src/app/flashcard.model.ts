@@ -3,6 +3,8 @@ export class Flashcard {
     readonly title: string,
     readonly answer: string,
     readonly category: string,
-    readonly id?: string
+    readonly authorId: string,
+    readonly isPrivate: boolean,
+    readonly group: string
   ) {}
 }

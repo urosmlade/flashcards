@@ -1,3 +1,10 @@
-<div class="card" *ngIf="flashcard" (click)="openCardDetailsModal()">
+<div
+  *ngIf="flashcard"
+  [ngClass]="{
+    'card cursor-pointer shadow-sm': true,
+    'card-private': flashcard.isPrivate
+  }"
+  (click)="openCardDetailsModal()"
+>
   <h5>{{ flashcard.title }}</h5>
 </div>

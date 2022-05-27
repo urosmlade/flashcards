@@ -1,0 +1,16 @@
+<div>
+  <form [formGroup]="groupForm">
+    <input
+      placeholder="Title"
+      class="form-control mb-3"
+      formControlName="title"
+    />
+    <button
+      (click)="add()"
+      class="btn btn-outline-secondary"
+      [disabled]="groupForm.invalid"
+    >
+      Add
+    </button>
+  </form>
+</div>
