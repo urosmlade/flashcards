@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-5">
+    <h6>Categories</h6>
+    <div *ngFor="let category of categories$ | async">
+      <p class="cursor-pointer" (click)="updateSelectedCategoryId(category)">
+        {{ category }}
+      </p>
+    </div>
+  </div>
+  <div
+    class="col-7"
+    *ngIf="selectedCategoryId$ | async; else noCategorySelected"
+  >
+    <app-list [flashcards$]="flashcards$"></app-list>
+  </div>
+</div>
+
+<ng-template #noCategorySelected></ng-template>
