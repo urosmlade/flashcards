@@ -129,6 +129,7 @@ export class FlashcardsService {
       answer: flashcard.answer,
       category: flashcard.category,
       author_id: flashcard.authorId,
+      author_name: flashcard.authorName,
       private: flashcard.isPrivate,
       group: flashcard.group,
     };
