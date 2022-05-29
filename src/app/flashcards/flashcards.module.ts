@@ -9,7 +9,8 @@ import { AddGroupComponent } from './add-group/add-group.component';
 import { AddComponent } from './add/add.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
 import { CardComponent } from './card/card.component';
-import { CategoryComponent } from './category/category.component';
+import { CategoryComponent } from './categories/categories.component';
+import { GroupComponent } from './group/group.component';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -31,6 +32,10 @@ const routes: Routes = [
     path: 'categories',
     component: CategoryComponent,
   },
+  {
+    path: 'groups',
+    component: GroupComponent,
+  },
 ];
 
 @NgModule({
@@ -44,6 +49,7 @@ const routes: Routes = [
     AddGroupComponent,
     AddFlashcardComponent,
     CategoryComponent,
+    GroupComponent,
   ],
   imports: [
     CommonModule,
