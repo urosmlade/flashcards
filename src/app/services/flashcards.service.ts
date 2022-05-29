@@ -178,7 +178,8 @@ export class FlashcardsService {
       obj['category'],
       obj['author_id'],
       obj['private'],
-      obj['group']
+      obj['group'],
+      obj['author_name']
     );
   }
 

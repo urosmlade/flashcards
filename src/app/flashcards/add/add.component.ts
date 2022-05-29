@@ -41,17 +41,18 @@ export class AddComponent {
   ngOnInit(): void {}
 
   add() {
-    this.authService.uid$
+    this.authService.userData$
       .pipe(
         take(1),
-        switchMap((id) => {
+        switchMap(({ uid, displayName }) => {
           const flashcard = new Flashcard(
             this.titleControl.value,
             this.answerControl.value,
             this.categoryControl.value,
-            id,
+            uid,
             this.privateControl.value,
-            this.groupControl.value
+            this.groupControl.value,
+            displayName ?? undefined
           );
 
           return this.flashcardsService.addFlashcard(flashcard);

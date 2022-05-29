@@ -6,13 +6,14 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import * as auth from 'firebase/auth';
+import { UserInfo } from 'firebase/auth';
 import { map, Observable } from 'rxjs';
 import { User } from '../services/user';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly userData$: Observable<any>; // Save logged in user data
+  readonly userData$: Observable<UserInfo>; // Save logged in user data
   readonly uid$: Observable<string>;
 
   constructor(
@@ -23,9 +24,20 @@ export class AuthService {
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
-    this.userData$ = this.afAuth.authState;
+    this.userData$ = this.afAuth.authState.pipe(
+      map(
+        (user) =>
+          ({
+            uid: user?.uid,
+            displayName: user?.displayName,
+            email: user?.email,
+            photoURL: user?.photoURL,
+          } as UserInfo)
+      )
+    );
 
-    this.uid$ = this.userData$.pipe(map((u) => u.multiFactor.user.uid));
+    this.uid$ = this.userData$.pipe(map((user) => user.uid));
+    // this.uid$ = this.userData$.pipe(map((u) => u.multiFactor.user.uid));
 
     this.afAuth.authState.subscribe((user) => {
       if (user) {

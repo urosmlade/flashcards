@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'firebase/auth';
-import { Observable, switchMap, tap } from 'rxjs';
+import { UserInfo } from 'firebase/auth';
+import { Observable, switchMap } from 'rxjs';
 import { Flashcard } from 'src/app/flashcard.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
@@ -13,7 +13,7 @@ import { FlashcardsService } from 'src/app/services/flashcards.service';
 export class ProfileComponent implements OnInit {
   readonly flashcards$: Observable<Flashcard[]>;
 
-  readonly user$: Observable<User>;
+  readonly user$: Observable<UserInfo>;
 
   constructor(
     private readonly authService: AuthService,
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
       switchMap((id) => this.flashcardsService.getFlashcardsForLoggedInUser(id))
     );
 
-    this.user$ = this.authService.userData$.pipe(tap((a) => console.log(a)));
+    this.user$ = this.authService.userData$;
   }
 
   ngOnInit(): void {}
