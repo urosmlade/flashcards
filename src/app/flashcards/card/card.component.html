@@ -1,10 +1,22 @@
 <div
   *ngIf="flashcard"
   [ngClass]="{
-    'card cursor-pointer shadow-sm': true,
+    'card cursor-pointer d-flex flex-column': true,
     'card-private': flashcard.isPrivate
   }"
-  (click)="openCardDetailsModal()"
+  (mouseenter)="setHoveredCard(flashcard.id)"
+  (mouseleave)="setHoveredCard(undefined)"
 >
-  <h5>{{ flashcard.question }}</h5>
+  <div (click)="openCardDetailsModal()" class="flex-grow-1">
+    <h5>{{ flashcard.question | slice: 0:50 }}</h5>
+  </div>
+  <div
+    *ngIf="shouldShowActions$ | async as showActions"
+    class="d-flex justify-content-end"
+  >
+    <div *ngIf="showActions.author && showActions.id === flashcard.id">
+      <i class="bi bi-pen me-2"></i>
+      <i class="bi bi-trash"></i>
+    </div>
+  </div>
 </div>

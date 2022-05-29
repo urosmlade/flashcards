@@ -7,5 +7,6 @@ export class Flashcard {
     readonly isPrivate: boolean,
     readonly group: string,
     readonly authorName?: string,
+    readonly id?:string,
   ) {}
 }

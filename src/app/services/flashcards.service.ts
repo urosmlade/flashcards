@@ -124,6 +124,8 @@ export class FlashcardsService {
   }
 
   addFlashcard(flashcard: Flashcard) {
+    const id = this.db.collection('Flashcards').doc().ref.id;
+
     const f = {
       question: flashcard.question,
       answer: flashcard.answer,
@@ -132,6 +134,7 @@ export class FlashcardsService {
       author_name: flashcard.authorName,
       private: flashcard.isPrivate,
       group: flashcard.group,
+      id: id,
     };
     return new Promise<any>((resolve, reject) => {
       this.db.collection('Flashcards').add(f);
@@ -180,7 +183,8 @@ export class FlashcardsService {
       obj['author_id'],
       obj['private'],
       obj['group'],
-      obj['author_name']
+      obj['author_name'],
+      obj['id']
     );
   }
 
