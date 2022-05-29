@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, Observable, switchMap } from 'rxjs';
 import { Flashcard } from 'src/app/flashcard.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,7 +21,8 @@ export class EditFlashcardComponent implements OnInit {
 
   constructor(
     private readonly flashcardsService: FlashcardsService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly activeModal: NgbActiveModal
   ) {
     this.flashcardForm = new FormGroup({
       question: this.questionControl,
@@ -63,7 +65,9 @@ export class EditFlashcardComponent implements OnInit {
         this.flashcard?.id
       );
 
-      this.flashcardsService.updateFlashcard(editedFlashcard);
+      this.flashcardsService
+        .updateFlashcard(editedFlashcard)
+        .then(() => this.activeModal.close());
     }
   }
 

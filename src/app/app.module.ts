@@ -45,8 +45,6 @@ const routes: Routes = [
     HomeComponent,
     SignInComponent,
     SignUpComponent,
-    // ForgotPasswordComponent,
-    // VerifyEmailComponent,
     HeaderComponent,
   ],
   imports: [
