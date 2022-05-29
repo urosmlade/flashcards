@@ -64,42 +64,42 @@ export class AuthService {
       });
   }
   // Sign up with email/password
-  signUp(email: string, password: string) {
+  signUp(email: string, password: string, name: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        this.sendVerificationMail();
-        this.setUserData(result.user);
+        // this.sendVerificationMail();
+        this.setUserData(result.user, name);
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
   // Send email verfificaiton when new user sign up
-  sendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
-  }
+  // sendVerificationMail() {
+  //   return this.afAuth.currentUser
+  //     .then((u: any) => u.sendEmailVerification())
+  //     .then(() => {
+  //       this.router.navigate(['verify-email-address']);
+  //     });
+  // }
   // Reset Forggot password
-  forgotPassword(passwordResetEmail: string) {
-    return this.afAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }
+  // forgotPassword(passwordResetEmail: string) {
+  //   return this.afAuth
+  //     .sendPasswordResetEmail(passwordResetEmail)
+  //     .then(() => {
+  //       window.alert('Password reset email sent, check your inbox.');
+  //     })
+  //     .catch((error) => {
+  //       window.alert(error);
+  //     });
+  // }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return Boolean(user.uid);
   }
   // Sign in with Google
   googleAuth() {
@@ -126,16 +126,15 @@ export class AuthService {
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setUserData(user: any) {
+  setUserData(user: any, name?: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: user.displayName ?? name,
       photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
     };
     return userRef.set(userData, {
       merge: true,

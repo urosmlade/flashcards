@@ -1,6 +1,10 @@
 <div *ngIf="user$ | async as user">
   <div class="d-flex align-items-center border-bottom pb-5">
-    <img [src]="user.photoURL" class="me-3 profile-image" alt="No image"/>
+    <img
+      [src]="user.photoURL ?? 'assets/profile_avatar.png'"
+      class="me-3 profile-image"
+      alt="No image"
+    />
     <div>
       <h5 class="mb-2">{{ user.displayName }}</h5>
       <h6>{{ user.email }}</h6>

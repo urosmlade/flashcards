@@ -5,11 +5,11 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthGuard } from './guard/auth.guard';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -17,14 +17,13 @@ import { AuthService } from './services/auth.service';
 import { FlashcardsService } from './services/flashcards.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register-user', component: SignUpComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-email-address', component: VerifyEmailComponent },
+  // { path: 'forgot-password', component: ForgotPasswordComponent },
+  // { path: 'verify-email-address', component: VerifyEmailComponent },
   {
     path: '',
     component: HomeComponent,
@@ -46,8 +45,8 @@ const routes: Routes = [
     HomeComponent,
     SignInComponent,
     SignUpComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent,
+    // ForgotPasswordComponent,
+    // VerifyEmailComponent,
     HeaderComponent,
   ],
   imports: [
@@ -59,6 +58,8 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     RouterModule.forRoot(routes),
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [AuthService, FlashcardsService],
   bootstrap: [AppComponent],

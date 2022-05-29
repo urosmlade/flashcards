@@ -1,4 +1,47 @@
-<div class="displayTable">
+<div class="signin border shadow p-4 text-center rounded">
+  <h4 class="mb-4">Sign Up</h4>
+  <form class="mb-3" [formGroup]="signUpForm">
+    <input
+      type="text"
+      class="form-control mb-3"
+      formControlName="email"
+      placeholder="Email"
+      required
+    />
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="Password"
+      formControlName="password"
+      required
+    />
+    <input
+      type="text"
+      class="form-control mb-5"
+      placeholder="First and Last name"
+      formControlName="name"
+      required
+    />
+    <button
+      class="btn btn-primary w-100"
+      (click)="signUpWithEmailAndPassword()"
+    >
+      Sign Up
+    </button>
+  </form>
+
+  <button class="btn border w-100 mb-3" (click)="googleAuth()">
+    Sign up with Google
+    <i class="bi bi-google"></i>
+  </button>
+
+  <p class="small mb-0">
+    Already have an account?
+    <span class="cursor-pointer" [routerLink]="['/sign-in']"> Sign In </span>
+  </p>
+</div>
+
+<!-- <div class="displayTable">
   <div class="displayTableCell">
     <div class="authBlock">
       <h3>Sign Up</h3>
@@ -31,7 +74,6 @@
       <div class="formGroup">
         <span class="or"><span class="orInner">Or</span></span>
       </div>
-      <!-- Continue with Google -->
       <div class="formGroup">
         <button
           type="button"
@@ -50,4 +92,4 @@
       >
     </div>
   </div>
-</div>
+</div> -->

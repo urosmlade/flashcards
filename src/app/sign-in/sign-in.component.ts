@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -10,7 +11,10 @@ import { AuthService } from '../services/auth.service';
 export class SignInComponent implements OnInit {
   readonly signInForm: FormGroup;
 
-  constructor(public authService: AuthService) {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {
     this.signInForm = new FormGroup({
       email: this.emailControl,
       password: this.passwordControl,
@@ -19,7 +23,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  signIn() {
+  signInWithUsernameAndPassword() {
     this.authService.signIn(
       this.emailControl.value,
       this.passwordControl.value
@@ -27,7 +31,9 @@ export class SignInComponent implements OnInit {
   }
 
   googleAuth() {
-    this.authService.googleAuth();
+    this.authService.googleAuth().then(() => {
+      this.router.navigate(['/flashcards']);
+    });
   }
 
   private readonly emailControl = new FormControl(undefined);

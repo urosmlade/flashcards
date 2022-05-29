@@ -1,40 +1,40 @@
-<!-- <div class="card">
-  <h3>Sign In</h3>
+<div class="signin border shadow p-4 text-center rounded">
+  <h4 class="mb-4">Sign In</h4>
+  <form class="mb-3" [formGroup]="signInForm">
+    <input
+      type="text"
+      class="form-control mb-3"
+      formControlName="email"
+      placeholder="Email"
+      required
+    />
+    <input
+      type="text"
+      class="form-control mb-5"
+      placeholder="Password"
+      formControlName="password"
+      required
+    />
+    <button
+      class="btn btn-primary w-100"
+      (click)="signInWithUsernameAndPassword()"
+    >
+      Sign In
+    </button>
+  </form>
 
-  <div>
-    <form [formGroup]="signInForm">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Email"
-        required
-        formControlName="email"
-      />
-      <input
-        type="password"
-        class="form-control"
-        placeholder="Password"
-        required
-        formControlName="password"
-      />
-    </form>
-  </div>
-
-  <button class="btn btn-primary" (click)="signIn()">Sign In</button>
-
-  <p>Or</p>
-
-  <button class="btn btn-primary" (click)="googleAuth()">
-    Login with Google <i class="fab fa-google-plus-g"></i>
+  <button class="btn border w-100 mb-3" (click)="googleAuth()">
+    Sign in with Google
+    <i class="bi bi-google"></i>
   </button>
 
-  <span routerLink="/forgot-password">Forgot Password</span>
+  <p class="small mb-0">
+    Don't have an account?
+    <span class="cursor-pointer" [routerLink]="['/register-user']">Sign Up</span>
+  </p>
+</div>
 
-  <span routerLink="/register-user">
-    Don't have an account?<span>Sign Up</span>
-  </span>
-</div> -->
-
+<!-- 
 <div class="displayTable">
   <div class="displayTableCell">
     <div class="authBlock">
@@ -93,4 +93,4 @@
       >
     </div>
   </div>
-</div>
+</div> -->
