@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EditFlashcardComponent } from './edit-flashcard.component';
 
 describe('EditFlashcardComponent', () => {
@@ -8,9 +7,8 @@ describe('EditFlashcardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditFlashcardComponent ]
-    })
-    .compileComponents();
+      declarations: [EditFlashcardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

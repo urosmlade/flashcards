@@ -7,24 +7,21 @@ import {
 import { Router } from '@angular/router';
 import * as auth from 'firebase/auth';
 import { UserInfo } from 'firebase/auth';
-import { map, Observable, switchMap, take } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '../services/user';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  readonly userData$: Observable<UserInfo>; // Save logged in user data
+  readonly userData$: Observable<UserInfo>;
   readonly uid$: Observable<string>;
 
   constructor(
-    public afs: AngularFirestore, // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone
   ) {
-    /* Saving user data in localstorage when 
-    logged in and setting up null when logged out */
-
     this.userData$ = this.afAuth.authState.pipe(
       map(
         (user) =>
@@ -50,14 +47,6 @@ export class AuthService {
     });
   }
 
-  loadUserData(id: string) {
-    this.uid$.pipe(
-      take(1),
-      switchMap((id) => this.afs.collection('users').get())
-    );
-  }
-
-  // Sign in with email/password
   signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
@@ -71,7 +60,6 @@ export class AuthService {
       });
   }
 
-  // Sign up with email/password
   signUp(email: string, password: string, name: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
@@ -91,7 +79,7 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user')!);
     return Boolean(user.uid);
   }
-  // Sign in with Google
+
   googleAuth() {
     return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       if (res) {
@@ -99,7 +87,7 @@ export class AuthService {
       }
     });
   }
-  // Auth logic to run auth providers
+
   authLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
@@ -113,9 +101,7 @@ export class AuthService {
         window.alert(error);
       });
   }
-  /* Setting up user data when sign in with username/password, 
-  sign up with username/password and sign in with social auth  
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
+
   setUserData(user: any, name?: string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
@@ -131,7 +117,7 @@ export class AuthService {
       merge: true,
     });
   }
-  // Sign out
+
   signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');

@@ -9,18 +9,6 @@ import { Group } from '../flashcards/group.model';
 export class FlashcardsService {
   constructor(private readonly db: AngularFirestore) {}
 
-  //home
-  // javne sve kartice
-  // privatne kartice za prijavljenog korisnika
-
-  // categories
-  // javne kartice po kategoriji
-  // privatne kartice za prijavljenog korisnika
-
-  // profil
-  // sve kartice za prijavljenog korisnika
-
-  // HOME PAGE
   getPublicFlashcards(): Observable<Flashcard[]> {
     return this.db
       .collection('Flashcards', (q) => q.where('private', '==', false))
@@ -49,7 +37,6 @@ export class FlashcardsService {
       );
   }
 
-  // CATEGORIES
   getPublicFlashcardsForSelectedCategory(
     categoryId: string
   ): Observable<Flashcard[]> {
@@ -88,8 +75,6 @@ export class FlashcardsService {
       );
   }
 
-  // GROUPS
-
   getFlashcardsForSelectedGroup(
     groupId: string,
     userId: string
@@ -107,8 +92,6 @@ export class FlashcardsService {
         )
       );
   }
-
-  // PROFILE
 
   getFlashcardsForLoggedInUser(userId: string): Observable<Flashcard[]> {
     return this.db

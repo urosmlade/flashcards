@@ -28,8 +28,6 @@ export class HomeComponent implements OnInit {
         ...privateFlashcards,
       ])
     );
-
-    // this.flashcards$.subscribe((a) => console.log(a));
   }
 
   ngOnInit(): void {}

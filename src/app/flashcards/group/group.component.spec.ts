@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { GroupComponent } from './group.component';
 
 describe('GroupComponent', () => {
@@ -8,9 +7,8 @@ describe('GroupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GroupComponent ]
-    })
-    .compileComponents();
+      declarations: [GroupComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

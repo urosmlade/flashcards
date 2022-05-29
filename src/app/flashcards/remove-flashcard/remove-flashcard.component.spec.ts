@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RemoveFlashcardComponent } from './remove-flashcard.component';
 
 describe('RemoveFlashcardComponent', () => {
@@ -8,9 +7,8 @@ describe('RemoveFlashcardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RemoveFlashcardComponent ]
-    })
-    .compileComponents();
+      declarations: [RemoveFlashcardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

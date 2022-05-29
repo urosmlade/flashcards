@@ -6,29 +6,3 @@
     {{ category }}
   </div>
 </div>
-
-<!-- <div class="row">
-  <div class="col-3">
-    <h5 class="mb-3">Categories</h5>
-    <div *ngFor="let category of categories$ | async">
-      <p class="cursor-pointer" (click)="updateSelectedCategoryId(category)">
-        {{ category }}
-      </p>
-    </div>
-  </div>
-  <div class="col-8">
-    <div *ngIf="selectedCategoryId$ | async; else noCategorySelected">
-      <div *ngIf="isCategoryNotEmpty$ | async; else emptyCategory">
-        <app-list [flashcards$]="flashcards$"></app-list>
-      </div>
-    </div>
-  </div>
-</div>
-
-<ng-template #noCategorySelected>
-  <p>Please select a category to show flashcards.</p>
-</ng-template>
-
-<ng-template #emptyCategory>
-  <p>There are no flashcards in this category.</p>
-</ng-template> -->
