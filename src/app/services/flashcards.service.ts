@@ -106,6 +106,27 @@ export class FlashcardsService {
       );
   }
 
+  getFlashcardsByAnotherUser(authorId: string) {
+    return this.db
+      .collection('Flashcards', (q) =>
+        q.where('author_id', '==', authorId).where('private', '==', false)
+      )
+      .valueChanges()
+      .pipe(
+        map((flashcards: any[]) =>
+          flashcards.map((flaschard) =>
+            FlashcardsService.toFlashcard(flaschard)
+          )
+        )
+      );
+  }
+
+  getAuthorData(authorId: string) {
+    return this.db
+      .collection('users', (q) => q.where('uid', '==', authorId))
+      .get();
+  }
+
   addFlashcard(flashcard: Flashcard) {
     const id = this.db.createId();
 

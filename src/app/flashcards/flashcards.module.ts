@@ -16,6 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RemoveFlashcardComponent } from './remove-flashcard/remove-flashcard.component';
+import { UserComponent } from './user/user.component';
+import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,10 @@ const routes: Routes = [
     path: 'groups/:id',
     component: GroupComponent,
   },
+  {
+    path: 'user/:id',
+    component: UserComponent,
+  },
 ];
 
 @NgModule({
@@ -62,6 +68,8 @@ const routes: Routes = [
     GroupsComponent,
     EditFlashcardComponent,
     RemoveFlashcardComponent,
+    UserComponent,
+    ProfileDetailsComponent,
   ],
   imports: [
     CommonModule,
