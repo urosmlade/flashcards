@@ -1,0 +1,10 @@
+<div class="p-4">
+  <p>Are you sure you want to remove flashcard?</p>
+  <p>Question: {{ flashcard?.question }}</p>
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-outline-secondary me-3" (click)="close()">
+      Cancel
+    </button>
+    <button class="btn btn-danger" (click)="delete()">Delete</button>
+  </div>
+</div>

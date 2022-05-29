@@ -4,6 +4,8 @@ import { combineLatest, map, Observable, Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { Flashcard } from '../../flashcard.model';
 import { CardDetailsComponent } from '../card-details/card-details.component';
+import { EditFlashcardComponent } from '../edit-flashcard/edit-flashcard.component';
+import { RemoveFlashcardComponent } from '../remove-flashcard/remove-flashcard.component';
 
 @Component({
   selector: 'app-card',
@@ -49,6 +51,18 @@ export class CardComponent implements OnInit {
 
   openCardDetailsModal() {
     const modalRef = this.modal.open(CardDetailsComponent);
+
+    modalRef.componentInstance.flashcard = this.flashcard;
+  }
+
+  openEditFlashcardModal() {
+    const modalRef = this.modal.open(EditFlashcardComponent);
+
+    modalRef.componentInstance.flashcard = this.flashcard;
+  }
+
+  openRemoveFlashcardModal() {
+    const modalRef = this.modal.open(RemoveFlashcardComponent);
 
     modalRef.componentInstance.flashcard = this.flashcard;
   }

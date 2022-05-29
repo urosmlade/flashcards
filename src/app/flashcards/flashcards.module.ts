@@ -9,11 +9,13 @@ import { CardDetailsComponent } from './card-details/card-details.component';
 import { CardComponent } from './card/card.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './category/category.component';
+import { EditFlashcardComponent } from './edit-flashcard/edit-flashcard.component';
 import { GroupComponent } from './group/group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RemoveFlashcardComponent } from './remove-flashcard/remove-flashcard.component';
 
 const routes: Routes = [
   {
@@ -57,7 +59,9 @@ const routes: Routes = [
     CategoriesComponent,
     GroupComponent,
     CategoryComponent,
-    GroupsComponent
+    GroupsComponent,
+    EditFlashcardComponent,
+    RemoveFlashcardComponent,
   ],
   imports: [
     CommonModule,

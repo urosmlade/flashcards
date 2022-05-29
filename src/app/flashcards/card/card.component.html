@@ -15,8 +15,8 @@
     class="d-flex justify-content-end"
   >
     <div *ngIf="showActions.author && showActions.id === flashcard.id">
-      <i class="bi bi-pen me-2"></i>
-      <i class="bi bi-trash"></i>
+      <i class="bi bi-pen me-2" (click)="openEditFlashcardModal()"></i>
+      <i class="bi bi-trash" (click)="openRemoveFlashcardModal()"></i>
     </div>
   </div>
 </div>

@@ -124,7 +124,7 @@ export class FlashcardsService {
   }
 
   addFlashcard(flashcard: Flashcard) {
-    const id = this.db.collection('Flashcards').doc().ref.id;
+    const id = this.db.createId();
 
     const f = {
       question: flashcard.question,
@@ -136,9 +136,14 @@ export class FlashcardsService {
       group: flashcard.group,
       id: id,
     };
+
     return new Promise<any>((resolve, reject) => {
-      this.db.collection('Flashcards').add(f);
+      this.db.collection('Flashcards').doc(id).set(f);
     });
+  }
+
+  removeFlashcard(id: string) {
+    return this.db.collection('Flashcards').doc(id).delete();
   }
 
   getGroups(userId: string) {
@@ -172,6 +177,19 @@ export class FlashcardsService {
     return new Promise<any>((resolve, reject) => {
       this.db.collection('Groups').add(group);
       resolve(group);
+    });
+  }
+
+  updateFlashcard(flashcard: Flashcard) {
+    return this.db.collection('Flashcards').doc(flashcard.id).set({
+      id: flashcard.id,
+      answer: flashcard.answer,
+      author_id: flashcard.authorId,
+      author_name: flashcard.authorName,
+      category: flashcard.category,
+      group: flashcard.group,
+      private: flashcard.isPrivate,
+      question: flashcard.question,
     });
   }
 
