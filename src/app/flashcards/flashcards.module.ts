@@ -9,7 +9,8 @@ import { AddGroupComponent } from './add-group/add-group.component';
 import { AddComponent } from './add/add.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
 import { CardComponent } from './card/card.component';
-import { CategoryComponent } from './categories/categories.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoryComponent } from './category/category.component';
 import { GroupComponent } from './group/group.component';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
@@ -30,6 +31,10 @@ const routes: Routes = [
   },
   {
     path: 'categories',
+    component: CategoriesComponent,
+  },
+  {
+    path: 'categories/:id',
     component: CategoryComponent,
   },
   {
@@ -48,8 +53,9 @@ const routes: Routes = [
     HomeComponent,
     AddGroupComponent,
     AddFlashcardComponent,
-    CategoryComponent,
+    CategoriesComponent,
     GroupComponent,
+    CategoryComponent,
   ],
   imports: [
     CommonModule,

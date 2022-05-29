@@ -1,5 +1,8 @@
 <div *ngFor="let category of categories$ | async">
-  <div class="border p-3 my-3 rounded shadow-sm cursor-pointer">
+  <div
+    class="border p-3 my-3 rounded shadow-sm cursor-pointer"
+    (click)="navigateToCategory(category)"
+  >
     {{ category }}
   </div>
 </div>
