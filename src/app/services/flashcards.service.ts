@@ -88,6 +88,26 @@ export class FlashcardsService {
       );
   }
 
+  // GROUPS
+
+  getFlashcardsForSelectedGroup(
+    groupId: string,
+    userId: string
+  ): Observable<Flashcard[]> {
+    return this.db
+      .collection('Flashcards', (q) =>
+        q.where('author_id', '==', userId).where('group', '==', groupId)
+      )
+      .valueChanges()
+      .pipe(
+        map((flashcards: any[]) =>
+          flashcards.map((flashcard) =>
+            FlashcardsService.toFlashcard(flashcard)
+          )
+        )
+      );
+  }
+
   // PROFILE
 
   getFlashcardsForLoggedInUser(userId: string): Observable<Flashcard[]> {

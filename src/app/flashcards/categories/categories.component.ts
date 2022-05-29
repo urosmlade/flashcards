@@ -12,9 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss'],
+  selector: 'app-categories',
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.scss'],
 })
 export class CategoryComponent implements OnInit {
   readonly categories$: Observable<string[]>;
