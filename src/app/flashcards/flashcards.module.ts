@@ -4,14 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AddFlashcardComponent } from './add-flashcard/add-flashcard.component';
-import { AddGroupComponent } from './add-group/add-group.component';
 import { AddComponent } from './add/add.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
 import { CardComponent } from './card/card.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './category/category.component';
 import { GroupComponent } from './group/group.component';
+import { GroupsComponent } from './groups/groups.component';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -39,6 +38,10 @@ const routes: Routes = [
   },
   {
     path: 'groups',
+    component: GroupsComponent,
+  },
+  {
+    path: 'groups/:id',
     component: GroupComponent,
   },
 ];
@@ -51,11 +54,10 @@ const routes: Routes = [
     AddComponent,
     ProfileComponent,
     HomeComponent,
-    AddGroupComponent,
-    AddFlashcardComponent,
     CategoriesComponent,
     GroupComponent,
     CategoryComponent,
+    GroupsComponent
   ],
   imports: [
     CommonModule,

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddFlashcardComponent } from './add-flashcard.component';
+import { GroupsComponent } from './groups.component';
 
-describe('AddFlashcardComponent', () => {
-  let component: AddFlashcardComponent;
-  let fixture: ComponentFixture<AddFlashcardComponent>;
+describe('GroupsComponent', () => {
+  let component: GroupsComponent;
+  let fixture: ComponentFixture<GroupsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddFlashcardComponent ]
+      declarations: [ GroupsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddFlashcardComponent);
+    fixture = TestBed.createComponent(GroupsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

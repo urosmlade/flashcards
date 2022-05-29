@@ -1,6 +1,6 @@
 export class Flashcard {
   constructor(
-    readonly title: string,
+    readonly question: string,
     readonly answer: string,
     readonly category: string,
     readonly authorId: string,

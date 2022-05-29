@@ -11,7 +11,5 @@ export class ListComponent implements OnInit {
   @Input() flashcards$?: Observable<Flashcard[]>;
 
   constructor() {}
-  ngOnInit(): void {
-    this.flashcards$?.subscribe(a => console.log(a))
-  }
+  ngOnInit(): void {}
 }

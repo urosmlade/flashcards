@@ -1,1 +1,14 @@
+<div *ngIf="user$ | async as user">
+  <div class="d-flex align-items-center border-bottom pb-5">
+    <img [src]="user.photoURL" class="me-3 profile-image" alt="No image"/>
+    <div>
+      <h5 class="mb-2">{{ user.displayName }}</h5>
+      <h6>{{ user.email }}</h6>
+      <p class="small cursor-pointer mt-3 text-danger" (click)="signOut()">
+        Sign out
+      </p>
+    </div>
+  </div>
+</div>
+
 <app-list [flashcards$]="flashcards$"></app-list>

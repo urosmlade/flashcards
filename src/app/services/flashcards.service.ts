@@ -125,7 +125,7 @@ export class FlashcardsService {
 
   addFlashcard(flashcard: Flashcard) {
     const f = {
-      title: flashcard.title,
+      question: flashcard.question,
       answer: flashcard.answer,
       category: flashcard.category,
       author_id: flashcard.authorId,
@@ -167,12 +167,13 @@ export class FlashcardsService {
 
     return new Promise<any>((resolve, reject) => {
       this.db.collection('Groups').add(group);
+      resolve(group);
     });
   }
 
   private static toFlashcard(obj: any): Flashcard {
     return new Flashcard(
-      obj['title'],
+      obj['question'],
       obj['answer'],
       obj['category'],
       obj['author_id'],
