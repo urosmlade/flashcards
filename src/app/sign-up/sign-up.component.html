@@ -30,7 +30,11 @@
     </button>
   </form>
 
-  <button class="btn border w-100 mb-3" (click)="googleAuth()">
+  <button
+    class="btn border w-100 mb-3"
+    [disabled]="signUpForm.invalid"
+    (click)="googleAuth()"
+  >
     Sign up with Google
     <i class="bi bi-google"></i>
   </button>

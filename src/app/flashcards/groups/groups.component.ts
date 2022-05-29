@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -61,7 +61,9 @@ export class GroupsComponent implements OnInit {
       });
   }
 
-  private readonly titleControl = new FormControl(undefined);
+  private readonly titleControl = new FormControl(undefined, [
+    Validators.required,
+  ]);
 
   private readonly formHiddenSubject$ = new BehaviorSubject<boolean>(true);
 }

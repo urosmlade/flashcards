@@ -1,5 +1,5 @@
 <div *ngIf="formHidden$ | async; else newGroup">
-  <button class="btn btn-primary" (click)="showAddGroupForm()">
+  <button class="btn btn-outline-primary" (click)="showAddGroupForm()">
     Add a new Group
   </button>
 </div>
@@ -25,7 +25,13 @@
       <button class="btn btn-outline-primary me-3" (click)="hideAddGroupForm()">
         Cancel
       </button>
-      <button class="btn btn-primary" (click)="addNewGroup()">Add</button>
+      <button
+        class="btn btn-primary"
+        (click)="addNewGroup()"
+        [disabled]="groupForm.invalid"
+      >
+        Add
+      </button>
     </form>
   </div>
 </ng-template>

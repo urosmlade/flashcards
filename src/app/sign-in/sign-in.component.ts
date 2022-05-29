@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -36,6 +36,10 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  private readonly emailControl = new FormControl(undefined);
-  private readonly passwordControl = new FormControl(undefined);
+  private readonly emailControl = new FormControl(undefined, [
+    Validators.required,
+  ]);
+  private readonly passwordControl = new FormControl(undefined, [
+    Validators.required,
+  ]);
 }

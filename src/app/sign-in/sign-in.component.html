@@ -17,6 +17,7 @@
     />
     <button
       class="btn btn-primary w-100"
+      [disabled]="signInForm.invalid"
       (click)="signInWithUsernameAndPassword()"
     >
       Sign In
