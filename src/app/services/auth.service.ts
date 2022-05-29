@@ -7,7 +7,7 @@ import {
 import { Router } from '@angular/router';
 import * as auth from 'firebase/auth';
 import { UserInfo } from 'firebase/auth';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap, take } from 'rxjs';
 import { User } from '../services/user';
 @Injectable({
   providedIn: 'root',
@@ -24,6 +24,7 @@ export class AuthService {
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
+
     this.userData$ = this.afAuth.authState.pipe(
       map(
         (user) =>
@@ -37,7 +38,6 @@ export class AuthService {
     );
 
     this.uid$ = this.userData$.pipe(map((user) => user.uid));
-    // this.uid$ = this.userData$.pipe(map((u) => u.multiFactor.user.uid));
 
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -49,6 +49,14 @@ export class AuthService {
       }
     });
   }
+
+  loadUserData(id: string) {
+    this.uid$.pipe(
+      take(1),
+      switchMap((id) => this.afs.collection('users').get())
+    );
+  }
+
   // Sign in with email/password
   signIn(email: string, password: string) {
     return this.afAuth
@@ -57,46 +65,28 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['flashcards']);
         });
-        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
+
   // Sign up with email/password
   signUp(email: string, password: string, name: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        // this.sendVerificationMail();
+        result.user?.updateProfile({
+          displayName: name,
+        });
         this.setUserData(result.user, name);
+        this.router.navigate(['/flashcards']);
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
-  // Send email verfificaiton when new user sign up
-  // sendVerificationMail() {
-  //   return this.afAuth.currentUser
-  //     .then((u: any) => u.sendEmailVerification())
-  //     .then(() => {
-  //       this.router.navigate(['verify-email-address']);
-  //     });
-  // }
-  // Reset Forggot password
-  // forgotPassword(passwordResetEmail: string) {
-  //   return this.afAuth
-  //     .sendPasswordResetEmail(passwordResetEmail)
-  //     .then(() => {
-  //       window.alert('Password reset email sent, check your inbox.');
-  //     })
-  //     .catch((error) => {
-  //       window.alert(error);
-  //     });
-  // }
-  // Returns true when user is looged in and email is verified
+
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return Boolean(user.uid);
@@ -136,6 +126,7 @@ export class AuthService {
       displayName: user.displayName ?? name,
       photoURL: user.photoURL,
     };
+
     return userRef.set(userData, {
       merge: true,
     });

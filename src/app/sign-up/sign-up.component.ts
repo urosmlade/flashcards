@@ -24,13 +24,11 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {}
 
   signUpWithEmailAndPassword() {
-    this.authService
-      .signUp(
-        this.emailControl.value,
-        this.passwordControl.value,
-        this.nameControl.value
-      )
-      .then(() => this.router.navigate(['/flashcards']));
+    this.authService.signUp(
+      this.emailControl.value,
+      this.passwordControl.value,
+      this.nameControl.value
+    );
   }
 
   googleAuth() {
