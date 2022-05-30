@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth/service/auth.service';
 import { CategoriesService } from '@categories/service/categories.service';
 import { Flashcard } from '@flashcards/flashcard.model';
+import { Group } from '@flashcards/group.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { GroupsService } from '@groups/service/groups.service';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +26,7 @@ export class AddComponent implements OnDestroy {
   readonly flashcardForm: FormGroup;
 
   readonly categories$: Observable<string[]>;
-  readonly groups$: Observable<string[]>;
+  readonly groups$: Observable<Group[]>;
 
   readonly noGroups$: Observable<boolean>;
   readonly groupsExist$: Observable<boolean>;
@@ -51,7 +52,6 @@ export class AddComponent implements OnDestroy {
 
     this.groups$ = this.authService.uid$.pipe(
       switchMap(id => this.groupsService.allByUser(id)),
-      map(groups => groups.map(group => group.title)),
       shareReplay(1)
     );
 
@@ -75,11 +75,13 @@ export class AddComponent implements OnDestroy {
               this.categoryControl.value,
               uid,
               this.privateControl.value,
-              this.groupControl.value,
-              displayName ?? undefined
+              this.groupControl.value.id,
+              this.groupControl.value.title,
+              displayName ?? '',
+              new Date()
             );
 
-            return this.flashcardsService.addFlashcard(flashcard);
+            return this.flashcardsService.add(flashcard);
           })
         )
         .subscribe(() => {

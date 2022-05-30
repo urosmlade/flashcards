@@ -5,8 +5,10 @@ export class Flashcard {
     readonly category: string,
     readonly authorId: string,
     readonly isPrivate: boolean,
-    readonly group: string,
-    readonly authorName?: string,
-    readonly id?:string,
+    readonly groupId: string,
+    readonly groupName: string,
+    readonly authorName: string,
+    readonly createdAt: Date,
+    readonly id?: string
   ) {}
 }

@@ -48,7 +48,7 @@ export class FlashcardsService {
   ): Observable<Flashcard[]> {
     return this.db
       .collection('Flashcards', q =>
-        q.where('author_id', '==', userId).where('group', '==', groupId)
+        q.where('author_id', '==', userId).where('group_id', '==', groupId)
       )
       .valueChanges()
       .pipe(map(FlashcardsService.toFlashcardArray));
@@ -76,19 +76,20 @@ export class FlashcardsService {
       .get();
   }
 
-  addFlashcard(flashcard: Flashcard): Promise<any> {
+  add(flashcard: Flashcard): Promise<any> {
     const id = this.db.createId();
 
     const f = {
-      question: flashcard.question.trim(),
-      answer: flashcard.answer.trim(),
-      category: flashcard.category,
-      author_id: flashcard.authorId,
-      author_name: flashcard.authorName,
-      private: flashcard.isPrivate,
-      group: flashcard.group,
-      id: id,
-      created_at: new Date()
+      'question': flashcard.question.trim(),
+      'answer': flashcard.answer.trim(),
+      'category': flashcard.category,
+      'author_id': flashcard.authorId,
+      'author_name': flashcard.authorName,
+      'private': flashcard.isPrivate,
+      'group_id': flashcard.groupId,
+      'group_name': flashcard.groupName,
+      'id': id,
+      'created_at': flashcard.createdAt
     };
 
     return new Promise<any>((resolve, reject) => {
@@ -99,14 +100,16 @@ export class FlashcardsService {
 
   updateFlashcard(flashcard: Flashcard): Promise<void> {
     return this.db.collection('Flashcards').doc(flashcard.id).set({
-      id: flashcard.id,
-      answer: flashcard.answer.trim(),
-      author_id: flashcard.authorId,
-      author_name: flashcard.authorName,
-      category: flashcard.category,
-      group: flashcard.group,
-      private: flashcard.isPrivate,
-      question: flashcard.question.trim()
+      'question': flashcard.question.trim(),
+      'answer': flashcard.answer.trim(),
+      'category': flashcard.category,
+      'author_id': flashcard.authorId,
+      'author_name': flashcard.authorName,
+      'private': flashcard.isPrivate,
+      'group_id': flashcard.groupId,
+      'group_name': flashcard.groupName,
+      'id': flashcard.id,
+      'created_at': flashcard.createdAt
     });
   }
 
@@ -127,8 +130,10 @@ export class FlashcardsService {
       obj['category'],
       obj['author_id'],
       obj['private'],
-      obj['group'],
+      obj['group_id'],
+      obj['group_name'],
       obj['author_name'],
+      obj['created_at'],
       obj['id']
     );
   }

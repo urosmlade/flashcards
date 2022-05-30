@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth/service/auth.service';
 import { CategoriesService } from '@categories/service/categories.service';
 import { Flashcard } from '@flashcards/flashcard.model';
+import { Group } from '@flashcards/group.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { GroupsService } from '@groups/service/groups.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -21,7 +27,7 @@ export class EditFlashcardComponent implements OnInit {
   readonly flashcardForm: FormGroup;
 
   readonly categories$: Observable<string[]>;
-  readonly groups$: Observable<string[]>;
+  readonly groups$: Observable<Group[]>;
 
   constructor(
     private readonly flashcardsService: FlashcardsService,
@@ -44,8 +50,7 @@ export class EditFlashcardComponent implements OnInit {
       .pipe(map(categories => categories.map(category => category.title)));
 
     this.groups$ = this.authService.uid$.pipe(
-      switchMap(id => this.groupsService.allByUser(id)),
-      map(groups => groups.map(group => group.title))
+      switchMap(id => this.groupsService.allByUser(id))
     );
   }
 
@@ -54,7 +59,7 @@ export class EditFlashcardComponent implements OnInit {
       question: this.flashcard?.question,
       answer: this.flashcard?.answer,
       category: this.flashcard?.category,
-      group: this.flashcard?.group,
+      group: this.flashcard?.groupName,
       private: this.flashcard?.isPrivate
     });
   }
@@ -67,8 +72,10 @@ export class EditFlashcardComponent implements OnInit {
         this.categoryControl.value,
         this.flashcard?.authorId,
         this.privateControl.value,
-        this.groupControl.value,
+        this.groupControl.value.id,
+        this.groupControl.value.title,
         this.flashcard?.authorName,
+        this.flashcard.createdAt,
         this.flashcard?.id
       );
 

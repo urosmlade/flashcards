@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth/service/auth.service';
+import { Group } from '@flashcards/group.model';
 import { GroupsService } from '@groups/service/groups.service';
-import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-groups-list',
@@ -11,7 +12,7 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent {
-  readonly groups$: Observable<string[]>;
+  readonly groups$: Observable<Group[]>;
 
   readonly formHidden$: Observable<boolean>;
 
@@ -21,8 +22,7 @@ export class ListComponent {
     private readonly router: Router
   ) {
     this.groups$ = this.authService.uid$.pipe(
-      switchMap(id => this.groupsService.allByUser(id)),
-      map(groups => groups.map(group => group.title))
+      switchMap(id => this.groupsService.allByUser(id))
     );
 
     this.formHidden$ = this.formHiddenSubject$.asObservable();

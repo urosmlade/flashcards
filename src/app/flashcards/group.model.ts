@@ -1,3 +1,7 @@
 export class Group {
-  constructor(readonly title: string, readonly authorId: string) {}
+  constructor(
+    readonly id: string,
+    readonly title: string,
+    readonly authorId: string
+  ) {}
 }

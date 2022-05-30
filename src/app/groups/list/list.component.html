@@ -16,9 +16,9 @@
 <div *ngFor="let group of groups$ | async">
   <div
     class="border p-3 my-3 rounded shadow-sm cursor-pointer"
-    (click)="navigateToGroup(group)"
+    (click)="navigateToGroup(group.id)"
   >
-    {{ group }}
+    {{ group.title }}
   </div>
 </div>
 
