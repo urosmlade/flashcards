@@ -7,11 +7,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.component.html',
-  styleUrls: ['./group.component.scss'],
+  selector: 'app-flashcards-per-group',
+  templateUrl: './one.component.html',
+  styleUrls: ['./one.component.scss'],
 })
-export class GroupComponent implements OnInit {
+export class OneComponent implements OnInit {
   readonly flashcards$: Observable<Flashcard[]>;
 
   constructor(

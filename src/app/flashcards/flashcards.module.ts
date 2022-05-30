@@ -6,9 +6,9 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ListComponent as CategoriesListComponent } from '../categories/list/list.component';
 import { OneComponent as OneCategoryComponent } from '../categories/one/one.component';
-import { GroupAddComponent } from '../groups/group-add/group-add.component';
-import { GroupComponent } from '../groups/group/group.component';
-import { GroupsComponent } from '../groups/groups/groups.component';
+import { AddComponent as AddGroupComponent } from '../groups/add/add.component';
+import { ListComponent as GroupsListComponent } from '../groups/list/list.component';
+import { OneComponent as OneGroupComponent } from '../groups/one/one.component';
 import { ProfileDetailsComponent } from '../profile/profile-details/profile-details.component';
 import { ProfileComponent } from '../profile/profile/profile.component';
 import { AddComponent } from './add/add.component';
@@ -45,11 +45,11 @@ const routes: Routes = [
   },
   {
     path: 'groups',
-    component: GroupsComponent,
+    component: GroupsListComponent,
   },
   {
     path: 'groups/:id',
-    component: GroupComponent,
+    component: OneGroupComponent,
   },
   {
     path: 'user/:id',
@@ -66,14 +66,14 @@ const routes: Routes = [
     ProfileComponent,
     HomeComponent,
     CategoriesListComponent,
-    GroupComponent,
+    OneGroupComponent,
     OneCategoryComponent,
-    GroupsComponent,
+    GroupsListComponent,
     EditFlashcardComponent,
     RemoveFlashcardComponent,
     UserComponent,
     ProfileDetailsComponent,
-    GroupAddComponent,
+    AddGroupComponent,
     SingleCardViewComponent,
     ViewComponent,
   ],

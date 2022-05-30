@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GroupAddComponent } from './group-add.component';
+import { ListComponent } from './list.component';
 
-describe('GroupAddComponent', () => {
-  let component: GroupAddComponent;
-  let fixture: ComponentFixture<GroupAddComponent>;
+describe('ListComponent', () => {
+  let component: ListComponent;
+  let fixture: ComponentFixture<ListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GroupAddComponent],
+      declarations: [ListComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupAddComponent);
+    fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

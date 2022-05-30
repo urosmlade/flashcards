@@ -5,11 +5,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
 
 @Component({
-  selector: 'app-groups',
-  templateUrl: './groups.component.html',
-  styleUrls: ['./groups.component.scss'],
+  selector: 'app-groups-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class GroupsComponent implements OnInit {
+export class ListComponent implements OnInit {
   readonly groups$: Observable<string[]>;
 
   readonly formHidden$: Observable<boolean>;

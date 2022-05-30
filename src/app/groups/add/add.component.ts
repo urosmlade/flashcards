@@ -7,10 +7,10 @@ import { FlashcardsService } from 'src/app/services/flashcards.service';
 
 @Component({
   selector: 'app-group-add',
-  templateUrl: './group-add.component.html',
-  styleUrls: ['./group-add.component.scss'],
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss'],
 })
-export class GroupAddComponent implements OnInit {
+export class AddComponent implements OnInit {
   @Input() resetForm$?: Observable<boolean>;
   @Input() showCancelButton?: boolean;
   @Output() readonly added$: Observable<boolean>;
