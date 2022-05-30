@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { CategoriesComponent } from '../categories/categories/categories.component';
-import { CategoryComponent } from '../categories/category/category.component';
+import { ListComponent as CategoriesListComponent } from '../categories/list/list.component';
+import { OneComponent as OneCategoryComponent } from '../categories/one/one.component';
 import { GroupAddComponent } from '../groups/group-add/group-add.component';
 import { GroupComponent } from '../groups/group/group.component';
 import { GroupsComponent } from '../groups/groups/groups.component';
@@ -37,11 +37,11 @@ const routes: Routes = [
   },
   {
     path: 'categories',
-    component: CategoriesComponent,
+    component: CategoriesListComponent,
   },
   {
     path: 'categories/:id',
-    component: CategoryComponent,
+    component: OneCategoryComponent,
   },
   {
     path: 'groups',
@@ -65,9 +65,9 @@ const routes: Routes = [
     AddComponent,
     ProfileComponent,
     HomeComponent,
-    CategoriesComponent,
+    CategoriesListComponent,
     GroupComponent,
-    CategoryComponent,
+    OneCategoryComponent,
     GroupsComponent,
     EditFlashcardComponent,
     RemoveFlashcardComponent,

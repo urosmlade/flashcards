@@ -4,11 +4,11 @@ import { map, Observable } from 'rxjs';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss'],
+  selector: 'app-categories-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class CategoriesComponent implements OnInit {
+export class ListComponent implements OnInit {
   readonly categories$: Observable<string[]>;
 
   constructor(

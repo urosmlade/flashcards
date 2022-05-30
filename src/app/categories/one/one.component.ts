@@ -6,11 +6,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss'],
+  selector: 'app-flashcards-per-category',
+  templateUrl: './one.component.html',
+  styleUrls: ['./one.component.scss'],
 })
-export class CategoryComponent implements OnInit {
+export class OneComponent implements OnInit {
   readonly flashcards$: Observable<Flashcard[]>;
 
   constructor(
