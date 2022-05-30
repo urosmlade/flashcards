@@ -9,8 +9,7 @@ import { OneComponent as OneCategoryComponent } from '../categories/one/one.comp
 import { AddComponent as AddGroupComponent } from '../groups/add/add.component';
 import { ListComponent as GroupsListComponent } from '../groups/list/list.component';
 import { OneComponent as OneGroupComponent } from '../groups/one/one.component';
-import { ProfileDetailsComponent } from '../profile/profile-details/profile-details.component';
-import { ProfileComponent } from '../profile/profile/profile.component';
+import { ProfileComponent } from '../profile/profile.component';
 import { AddComponent } from './add/add.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
 import { CardComponent } from './card/card.component';
@@ -19,7 +18,6 @@ import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { RemoveFlashcardComponent } from './remove-flashcard/remove-flashcard.component';
 import { SingleCardViewComponent } from './single-card-view/single-card-view.component';
-import { UserComponent } from './user/user.component';
 import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
@@ -28,7 +26,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'profile',
+    path: 'user/:userId',
     component: ProfileComponent,
   },
   {
@@ -51,10 +49,6 @@ const routes: Routes = [
     path: 'groups/:id',
     component: OneGroupComponent,
   },
-  {
-    path: 'user/:id',
-    component: UserComponent,
-  },
 ];
 
 @NgModule({
@@ -71,8 +65,6 @@ const routes: Routes = [
     GroupsListComponent,
     EditFlashcardComponent,
     RemoveFlashcardComponent,
-    UserComponent,
-    ProfileDetailsComponent,
     AddGroupComponent,
     SingleCardViewComponent,
     ViewComponent,
