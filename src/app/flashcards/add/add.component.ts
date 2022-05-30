@@ -26,7 +26,7 @@ export class AddComponent {
     private readonly toastrService: ToastrService
   ) {
     this.flashcardForm = new FormGroup({
-      title: this.titleControl,
+      question: this.questionControl,
       answer: this.answerControl,
       category: this.categoryControl,
       group: this.groupControl,
@@ -55,7 +55,7 @@ export class AddComponent {
         take(1),
         switchMap(({ uid, displayName }) => {
           const flashcard = new Flashcard(
-            this.titleControl.value,
+            this.questionControl.value,
             this.answerControl.value,
             this.categoryControl.value,
             uid,
@@ -69,11 +69,12 @@ export class AddComponent {
       )
       .subscribe(() => {
         this.toastrService.success('Flashcard added');
-        this.flashcardForm.reset();
+        this.questionControl.reset();
+        this.answerControl.reset();
       });
   }
 
-  private readonly titleControl = new FormControl(undefined, [
+  private readonly questionControl = new FormControl(undefined, [
     Validators.required,
   ]);
   private readonly answerControl = new FormControl(undefined, [
