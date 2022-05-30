@@ -1,3 +1,11 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page">
+      <a [routerLink]="['/flashcards']">Home</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Add</li>
+  </ol>
+</nav>
 <div class="add-card shadow-sm border rounded p-4">
   <form [formGroup]="flashcardForm">
     <input

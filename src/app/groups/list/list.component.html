@@ -1,3 +1,12 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page">
+      <a [routerLink]="['/flashcards']">Home</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Groups</li>
+  </ol>
+</nav>
+
 <div *ngIf="formHidden$ | async; else newGroup">
   <button class="btn btn-outline-primary" (click)="showAddGroupForm()">
     Add a new Group

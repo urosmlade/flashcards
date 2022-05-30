@@ -14,15 +14,17 @@ import { combineLatest, map, Observable, switchMap } from 'rxjs';
 export class OneComponent {
   readonly flashcards$: Observable<Flashcard[]>;
 
+  readonly categoryId$: Observable<string>;
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly flashcardsService: FlashcardsService,
     private readonly authService: AuthService
   ) {
-    const selectedCategoryId$ = this.route.params.pipe(map(p => p.id));
+    this.categoryId$ = this.route.params.pipe(map(p => p.id));
     const userId$ = this.authService.uid$;
 
-    this.flashcards$ = combineLatest([selectedCategoryId$, userId$]).pipe(
+    this.flashcards$ = combineLatest([this.categoryId$, userId$]).pipe(
       switchMap(([cid, uid]) => {
         const publicFlashcards =
           this.flashcardsService.getPublicFlashcardsForSelectedCategory(cid);
