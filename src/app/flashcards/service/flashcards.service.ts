@@ -72,7 +72,7 @@ export class FlashcardsService {
 
   getAuthorData(authorId: string) {
     return this.db
-      .collection('users', q => q.where('uid', '==', authorId))
+      .collection('Users', q => q.where('uid', '==', authorId))
       .get();
   }
 

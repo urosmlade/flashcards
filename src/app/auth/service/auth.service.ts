@@ -90,7 +90,7 @@ export class AuthService {
 
   setUserData(user: any, name?: string): Promise<void> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
+      `Users/${user.uid}`
     );
     const userData: User = {
       uid: user.uid,
