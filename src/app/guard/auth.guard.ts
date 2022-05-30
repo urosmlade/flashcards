@@ -3,7 +3,8 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
-  RouterStateSnapshot
+  RouterStateSnapshot,
+  UrlTree
 } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -15,7 +16,11 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.userData$.pipe(map((user) => Boolean(user)));
+  ): Observable<boolean | UrlTree> {
+    return this.authService.userData$.pipe(
+      map((user) =>
+        Boolean(user.uid) ? true : this.router.parseUrl('/sign-in')
+      )
+    );
   }
 }
