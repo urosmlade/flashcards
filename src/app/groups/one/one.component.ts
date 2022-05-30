@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth/service/auth.service';
 import { Flashcard } from '@flashcards/flashcard.model';
@@ -9,7 +9,8 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 @Component({
   selector: 'app-flashcards-per-group',
   templateUrl: './one.component.html',
-  styleUrls: ['./one.component.scss']
+  styleUrls: ['./one.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OneComponent {
   readonly flashcards$: Observable<Flashcard[]>;

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth/service/auth.service';
 import { EditFlashcardComponent } from '@flashcards/edit-flashcard/edit-flashcard.component';
@@ -11,7 +11,8 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 @Component({
   selector: 'app-single-card-view',
   templateUrl: './single-card-view.component.html',
-  styleUrls: ['./single-card-view.component.scss']
+  styleUrls: ['./single-card-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleCardViewComponent implements OnInit, OnDestroy {
   @Input() flashcards$?: Observable<Flashcard[]>;

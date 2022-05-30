@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth/service/auth.service';
 import { CategoriesService } from '@categories/service/categories.service';
@@ -18,7 +18,8 @@ import {
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  styleUrls: ['./add.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddComponent implements OnDestroy {
   readonly flashcardForm: FormGroup;

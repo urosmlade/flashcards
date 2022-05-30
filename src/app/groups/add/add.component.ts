@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth/service/auth.service';
 import { GroupsService } from '@groups/service/groups.service';
@@ -8,7 +8,8 @@ import { Observable, Subject, Subscription, switchMap, take } from 'rxjs';
 @Component({
   selector: 'app-group-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  styleUrls: ['./add.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddComponent implements OnDestroy {
   @Input() resetForm$?: Observable<boolean>;

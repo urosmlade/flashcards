@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Flashcard } from '@flashcards/flashcard.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,7 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-remove-flashcard',
   templateUrl: './remove-flashcard.component.html',
-  styleUrls: ['./remove-flashcard.component.scss']
+  styleUrls: ['./remove-flashcard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemoveFlashcardComponent {
   @Input() flashcard?: Flashcard;

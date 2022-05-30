@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriesService } from '@categories/service/categories.service';
 import { map, Observable } from 'rxjs';
@@ -6,7 +6,8 @@ import { map, Observable } from 'rxjs';
 @Component({
   selector: 'app-categories-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent {
   readonly categories$: Observable<string[]>;

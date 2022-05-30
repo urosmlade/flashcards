@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth/service/auth.service';
 import { GroupsService } from '@groups/service/groups.service';
@@ -7,7 +7,8 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 @Component({
   selector: 'app-groups-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent {
   readonly groups$: Observable<string[]>;

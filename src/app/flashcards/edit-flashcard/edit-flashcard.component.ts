@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth/service/auth.service';
 import { CategoriesService } from '@categories/service/categories.service';
@@ -12,7 +12,8 @@ import { map, Observable, switchMap } from 'rxjs';
 @Component({
   selector: 'app-edit-flashcard',
   templateUrl: './edit-flashcard.component.html',
-  styleUrls: ['./edit-flashcard.component.scss']
+  styleUrls: ['./edit-flashcard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditFlashcardComponent implements OnInit {
   @Input() flashcard?: Flashcard;
