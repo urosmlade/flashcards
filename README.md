@@ -1,3 +1,6 @@
+# Hosting
+This project is hosted at: https://flashcards2-d4e8f.web.app/sign-in
+
 # Flashcards
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.6.

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable, shareReplay, switchMap, take } from 'rxjs';
 import { Flashcard } from 'src/app/flashcard.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,7 +22,8 @@ export class AddComponent {
 
   constructor(
     private readonly flashcardsService: FlashcardsService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastrService: ToastrService
   ) {
     this.flashcardForm = new FormGroup({
       title: this.titleControl,
@@ -65,7 +67,10 @@ export class AddComponent {
           return this.flashcardsService.addFlashcard(flashcard);
         })
       )
-      .subscribe();
+      .subscribe(() => {
+        this.toastrService.success('Flashcard added');
+        this.flashcardForm.reset();
+      });
   }
 
   private readonly titleControl = new FormControl(undefined, [

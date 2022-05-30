@@ -143,6 +143,7 @@ export class FlashcardsService {
 
     return new Promise<any>((resolve, reject) => {
       this.db.collection('Flashcards').doc(id).set(f);
+      resolve('');
     });
   }
 

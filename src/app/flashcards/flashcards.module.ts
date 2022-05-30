@@ -10,15 +10,15 @@ import { CardComponent } from './card/card.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './category/category.component';
 import { EditFlashcardComponent } from './edit-flashcard/edit-flashcard.component';
+import { GroupAddComponent } from './group-add/group-add.component';
 import { GroupComponent } from './group/group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
+import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RemoveFlashcardComponent } from './remove-flashcard/remove-flashcard.component';
 import { UserComponent } from './user/user.component';
-import { ProfileDetailsComponent } from './profile-details/profile-details.component';
-import { GroupAddComponent } from './group-add/group-add.component';
 
 const routes: Routes = [
   {

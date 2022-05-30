@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, switchMap, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
@@ -18,7 +19,8 @@ export class GroupAddComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly flashcardsService: FlashcardsService
+    private readonly flashcardsService: FlashcardsService,
+    private readonly toastrService: ToastrService
   ) {
     this.groupForm = new FormGroup({
       title: this.titleControl,
@@ -39,6 +41,7 @@ export class GroupAddComponent implements OnInit {
         )
       )
       .subscribe(() => {
+        this.toastrService.success('Group added');
         this.addedSubject$.next(true);
       });
   }

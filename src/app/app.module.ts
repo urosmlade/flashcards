@@ -7,7 +7,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -47,6 +49,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -56,6 +59,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [AuthService, FlashcardsService],
   bootstrap: [AppComponent],
