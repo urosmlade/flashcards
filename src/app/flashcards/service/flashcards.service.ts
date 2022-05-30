@@ -2,30 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { Flashcard } from '../flashcard.model';
-import { Category } from '../flashcards/category.model';
-import { Group } from '../flashcards/group.model';
 
 @Injectable()
 export class FlashcardsService {
   constructor(private readonly db: AngularFirestore) {}
 
-  getPublicFlashcards(): Observable<Flashcard[]> {
-    return this.db
-      .collection('Flashcards', (q) => q.where('private', '==', false))
-      .valueChanges()
-      .pipe(
-        map((flashcards: any[]) =>
-          flashcards.map((flaschard) =>
-            FlashcardsService.toFlashcard(flaschard)
-          )
-        )
-      );
-  }
-
-  getPrivateFlashcardsForLoggedInUser(userId: string): Observable<Flashcard[]> {
+  latestFlashcards(): Observable<Flashcard[]> {
     return this.db
       .collection('Flashcards', (q) =>
-        q.where('author_id', '==', userId).where('private', '==', true)
+        q.where('private', '==', false).orderBy('created_at', 'desc').limit(10)
       )
       .valueChanges()
       .pipe(
@@ -139,50 +124,12 @@ export class FlashcardsService {
       private: flashcard.isPrivate,
       group: flashcard.group,
       id: id,
-      created_at: new Date()
+      created_at: new Date(),
     };
 
     return new Promise<any>((resolve, reject) => {
       this.db.collection('Flashcards').doc(id).set(f);
       resolve('');
-    });
-  }
-
-  removeFlashcard(id: string) {
-    return this.db.collection('Flashcards').doc(id).delete();
-  }
-
-  getGroups(userId: string) {
-    return this.db
-      .collection('Groups', (q) => q.where('author_id', '==', userId))
-      .valueChanges()
-      .pipe(
-        map((groups: any[]) =>
-          groups.map((group) => FlashcardsService.toGroup(group))
-        )
-      );
-  }
-
-  getCategories() {
-    return this.db
-      .collection('Categories')
-      .valueChanges()
-      .pipe(
-        map((categories: any[]) =>
-          categories.map((category) => FlashcardsService.toCategory(category))
-        )
-      );
-  }
-
-  addGroup(title: string, userId: string) {
-    const group = {
-      title: title.trim(),
-      author_id: userId,
-    };
-
-    return new Promise<any>((resolve, reject) => {
-      this.db.collection('Groups').add(group);
-      resolve(group);
     });
   }
 
@@ -199,6 +146,10 @@ export class FlashcardsService {
     });
   }
 
+  removeFlashcard(id: string) {
+    return this.db.collection('Flashcards').doc(id).delete();
+  }
+
   private static toFlashcard(obj: any): Flashcard {
     return new Flashcard(
       obj['question'],
@@ -210,13 +161,5 @@ export class FlashcardsService {
       obj['author_name'],
       obj['id']
     );
-  }
-
-  private static toGroup(obj: any): Group {
-    return new Group(obj['title'], obj['author_id']);
-  }
-
-  private static toCategory(obj: any): Category {
-    return new Category(obj['id'], obj['title']);
   }
 }

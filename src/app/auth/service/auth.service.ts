@@ -1,17 +1,16 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
-  AngularFirestore,
-  AngularFirestoreDocument
+    AngularFirestore,
+    AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import * as auth from 'firebase/auth';
 import { UserInfo } from 'firebase/auth';
 import { map, Observable } from 'rxjs';
-import { User } from '../services/user';
-@Injectable({
-  providedIn: 'root',
-})
+import { User } from 'src/app/auth/user';
+
+@Injectable()
 export class AuthService {
   readonly userData$: Observable<UserInfo>;
   readonly uid$: Observable<string>;

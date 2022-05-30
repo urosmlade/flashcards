@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, map, Observable, switchMap } from 'rxjs';
-import { Flashcard } from 'src/app/flashcard.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { FlashcardsService } from 'src/app/services/flashcards.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { Flashcard } from 'src/app/flashcards/flashcard.model';
+import { FlashcardsService } from 'src/app/flashcards/service/flashcards.service';
 
 @Component({
   selector: 'app-flashcards-per-category',

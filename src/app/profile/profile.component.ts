@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { UserInfo } from 'firebase/auth';
 import { map, Observable, switchMap } from 'rxjs';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Flashcard } from 'src/app/flashcard.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { FlashcardsService } from 'src/app/services/flashcards.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { Flashcard } from 'src/app/flashcards/flashcard.model';
+import { FlashcardsService } from 'src/app/flashcards/service/flashcards.service';
 
 @Component({
   selector: 'app-profile',

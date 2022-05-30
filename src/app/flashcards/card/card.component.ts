@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest, map, Observable, Subject } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { Flashcard } from '../../flashcard.model';
+import { AuthService } from 'src/app/auth/service/auth.service';
 import { CardDetailsComponent } from '../card-details/card-details.component';
 import { EditFlashcardComponent } from '../edit-flashcard/edit-flashcard.component';
+import { Flashcard } from '../flashcard.model';
 import { RemoveFlashcardComponent } from '../remove-flashcard/remove-flashcard.component';
 
 @Component({

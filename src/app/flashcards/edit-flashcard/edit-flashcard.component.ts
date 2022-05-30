@@ -3,9 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable, switchMap } from 'rxjs';
-import { Flashcard } from 'src/app/flashcard.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { FlashcardsService } from 'src/app/services/flashcards.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { CategoriesService } from 'src/app/categories/service/categories.service';
+import { Flashcard } from 'src/app/flashcards/flashcard.model';
+import { FlashcardsService } from 'src/app/flashcards/service/flashcards.service';
+import { GroupsService } from 'src/app/groups/service/groups.service';
 
 @Component({
   selector: 'app-edit-flashcard',
@@ -22,9 +24,11 @@ export class EditFlashcardComponent implements OnInit {
 
   constructor(
     private readonly flashcardsService: FlashcardsService,
+    private readonly categoriesService: CategoriesService,
     private readonly authService: AuthService,
     private readonly activeModal: NgbActiveModal,
-    private readonly toastrService: ToastrService
+    private readonly toastrService: ToastrService,
+    private readonly groupsService: GroupsService
   ) {
     this.flashcardForm = new FormGroup({
       question: this.questionControl,
@@ -34,12 +38,12 @@ export class EditFlashcardComponent implements OnInit {
       private: this.privateControl,
     });
 
-    this.categories$ = this.flashcardsService
-      .getCategories()
+    this.categories$ = this.categoriesService
+      .all()
       .pipe(map((categories) => categories.map((category) => category.title)));
 
     this.groups$ = this.authService.uid$.pipe(
-      switchMap((id) => this.flashcardsService.getGroups(id)),
+      switchMap((id) => this.groupsService.allByUser(id)),
       map((groups) => groups.map((group) => group.title))
     );
   }

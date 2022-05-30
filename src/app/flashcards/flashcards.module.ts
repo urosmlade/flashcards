@@ -6,9 +6,11 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ListComponent as CategoriesListComponent } from '../categories/list/list.component';
 import { OneComponent as OneCategoryComponent } from '../categories/one/one.component';
+import { CategoriesService } from '../categories/service/categories.service';
 import { AddComponent as AddGroupComponent } from '../groups/add/add.component';
 import { ListComponent as GroupsListComponent } from '../groups/list/list.component';
 import { OneComponent as OneGroupComponent } from '../groups/one/one.component';
+import { GroupsService } from '../groups/service/groups.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { AddComponent } from './add/add.component';
 import { CardDetailsComponent } from './card-details/card-details.component';
@@ -17,6 +19,7 @@ import { EditFlashcardComponent } from './edit-flashcard/edit-flashcard.componen
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
 import { RemoveFlashcardComponent } from './remove-flashcard/remove-flashcard.component';
+import { FlashcardsService } from './service/flashcards.service';
 import { SingleCardViewComponent } from './single-card-view/single-card-view.component';
 import { ViewComponent } from './view/view.component';
 
@@ -78,5 +81,6 @@ const routes: Routes = [
     NgbModule,
     RouterModule.forChild(routes),
   ],
+  providers: [FlashcardsService, CategoriesService, GroupsService],
 })
 export class FlashcardsModule {}

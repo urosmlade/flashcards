@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter } from 'rxjs';
-import { Flashcard } from '../../flashcard.model';
+import { Flashcard } from '../flashcard.model';
 
 @Component({
   selector: 'app-card-details',

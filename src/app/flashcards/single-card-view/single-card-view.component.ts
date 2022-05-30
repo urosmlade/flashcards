@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Flashcard } from 'src/app/flashcard.model';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { Flashcard } from 'src/app/flashcards/flashcard.model';
 import { EditFlashcardComponent } from '../edit-flashcard/edit-flashcard.component';
 import { RemoveFlashcardComponent } from '../remove-flashcard/remove-flashcard.component';
 

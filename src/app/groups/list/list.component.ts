@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { FlashcardsService } from 'src/app/services/flashcards.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { GroupsService } from '../service/groups.service';
 
 @Component({
   selector: 'app-groups-list',
@@ -16,11 +16,11 @@ export class ListComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly flashcardsService: FlashcardsService,
+    private readonly groupsService: GroupsService,
     private readonly router: Router
   ) {
     this.groups$ = this.authService.uid$.pipe(
-      switchMap((id) => this.flashcardsService.getGroups(id)),
+      switchMap((id) => this.groupsService.allByUser(id)),
       map((groups) => groups.map((group) => group.title))
     );
 

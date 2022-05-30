@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../auth/service/auth.service';
 
 @Component({
   selector: 'app-header',

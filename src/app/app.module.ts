@@ -12,13 +12,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './guard/auth.guard';
+import { AuthGuard } from './auth/guard/auth.guard';
+import { AuthService } from './auth/service/auth.service';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { AuthService } from './services/auth.service';
-import { FlashcardsService } from './services/flashcards.service';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -61,7 +60,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [AuthService, FlashcardsService],
+  providers: [AuthService],
   bootstrap: [AppComponent],
   exports: [RouterModule],
 })

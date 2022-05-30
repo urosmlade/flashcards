@@ -2,8 +2,9 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, switchMap, take } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { FlashcardsService } from 'src/app/services/flashcards.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { FlashcardsService } from 'src/app/flashcards/service/flashcards.service';
+import { GroupsService } from '../service/groups.service';
 
 @Component({
   selector: 'app-group-add',
@@ -20,7 +21,8 @@ export class AddComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly flashcardsService: FlashcardsService,
-    private readonly toastrService: ToastrService
+    private readonly toastrService: ToastrService,
+    private readonly groupsService: GroupsService
   ) {
     this.groupForm = new FormGroup({
       title: this.titleControl,
@@ -36,9 +38,7 @@ export class AddComponent implements OnInit {
     this.authService.uid$
       .pipe(
         take(1),
-        switchMap((id) =>
-          this.flashcardsService.addGroup(this.titleControl.value, id)
-        )
+        switchMap((id) => this.groupsService.add(this.titleControl.value, id))
       )
       .subscribe(() => {
         this.toastrService.success('Group added');

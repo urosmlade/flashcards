@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { Flashcard } from 'src/app/flashcard.model';
+import { Flashcard } from 'src/app/flashcards/flashcard.model';
 
 @Component({
   selector: 'app-view',
