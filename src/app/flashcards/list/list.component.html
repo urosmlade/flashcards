@@ -1,11 +1,5 @@
-<div class="d-flex flex-wrap" *ngIf="listNotEmpty$ | async; else emptyList">
+<div class="d-flex flex-wrap">
   <div *ngFor="let flashcard of flashcards$ | async">
     <app-card [flashcard]="flashcard"></app-card>
   </div>
 </div>
-
-<ng-template #emptyList>
-  <div class="d-flex align-items-center justify-content-center w-100">
-    <img src="assets/emptyList.png" />
-  </div>
-</ng-template>

@@ -1,0 +1,47 @@
+<div
+  class="d-flex justify-content-center mt-3"
+  *ngIf="flashcards$ | async as flashcards"
+>
+  <button class="btn" (click)="prevCard()"><</button>
+  <div class="flex-grow-1 flex-md-grow-0">
+    <div *ngFor="let flashcard of flashcards; let i = index">
+      <div *ngIf="(index$ | async) === i + 1">
+        <div class="p-4 border rounded shadow-sm card">
+          <div class="text-center">
+            <h5>{{ flashcard.question }}</h5>
+          </div>
+          <div class="mb-3 mb-auto">
+            <p>{{ flashcard.answer }}</p>
+          </div>
+          <hr />
+          <p class="small mb-2 cursor-pointer" (click)="goToCategory(flashcard.category)">
+            Category: {{ flashcard.category }}
+          </p>
+          <div class="d-flex flex-column flex-sm-row justify-content-between">
+            <p
+              class="small mb-0 cursor-pointer"
+              (click)="goToAuthorProfile(flashcard.authorId)"
+            >
+              Author: {{ flashcard.authorName }}
+            </p>
+            <div
+              class="d-flex"
+              *ngIf="flashcard.authorId === (loggedInUserId$ | async)"
+            >
+              <i
+                class="bi bi-pen me-2 cursor-pointer"
+                (click)="openEditFlashcardModal(flashcard)"
+              ></i>
+              <i
+                class="bi bi-trash cursor-pointer"
+                (click)="openRemoveFlashcardModal(flashcard)"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" (click)="nextCard()">></button>
+</div>

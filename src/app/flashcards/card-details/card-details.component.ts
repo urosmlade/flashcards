@@ -26,4 +26,8 @@ export class CardDetailsComponent implements OnInit {
   goToAuthorProfile(authorId: string) {
     this.router.navigate(['user', authorId]);
   }
+
+  goToCategory(categoryId: string) {
+    this.router.navigate(['categories', categoryId]);
+  }
 }

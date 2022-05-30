@@ -1,0 +1,28 @@
+<div *ngIf="listNotEmpty$ | async; else emptyList">
+  <div class="d-flex justify-content-end">
+    <button class="btn" (click)="switchToListView()">
+      <i class="bi bi-grid"></i>
+    </button>
+    <button class="btn" (click)="switchToSingleView()">
+      <i class="bi bi-card-text"></i>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="listView$ | async">
+  <app-list [flashcards$]="flashcards$"></app-list>
+</div>
+
+<div *ngIf="singleView$ | async">
+  <app-single-card-view [flashcards$]="flashcards$"></app-single-card-view>
+</div>
+
+<ng-template #emptyList>
+  <div>
+    <h4>There are no flashcards</h4>
+    <p>
+      If you want to add a new Flashcard
+      <a class="fw-bold" [routerLink]="['/add']">click here.</a>
+    </p>
+  </div>
+</ng-template>

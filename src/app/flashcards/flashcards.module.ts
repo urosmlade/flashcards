@@ -19,6 +19,8 @@ import { ProfileDetailsComponent } from './profile-details/profile-details.compo
 import { ProfileComponent } from './profile/profile.component';
 import { RemoveFlashcardComponent } from './remove-flashcard/remove-flashcard.component';
 import { UserComponent } from './user/user.component';
+import { SingleCardViewComponent } from './single-card-view/single-card-view.component';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
   {
@@ -72,6 +74,8 @@ const routes: Routes = [
     UserComponent,
     ProfileDetailsComponent,
     GroupAddComponent,
+    SingleCardViewComponent,
+    ViewComponent,
   ],
   imports: [
     CommonModule,
