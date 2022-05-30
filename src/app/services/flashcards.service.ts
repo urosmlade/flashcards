@@ -139,6 +139,7 @@ export class FlashcardsService {
       private: flashcard.isPrivate,
       group: flashcard.group,
       id: id,
+      created_at: new Date()
     };
 
     return new Promise<any>((resolve, reject) => {
