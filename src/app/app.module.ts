@@ -20,9 +20,9 @@ import { HomeComponent } from 'src/app/home/home.component';
 import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'register-user', component: SignUpComponent },
+  { path: '', redirectTo: '/signin', pathMatch: 'full' },
+  { path: 'signin', component: SignInComponent },
+  { path: 'signup', component: SignUpComponent },
   {
     path: '',
     component: HomeComponent,
@@ -31,10 +31,13 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: async () =>
-          (await import('@flashcards/flashcards.module'))
-            .FlashcardsModule
+          (await import('@flashcards/flashcards.module')).FlashcardsModule
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: '/signin'
   }
 ];
 
