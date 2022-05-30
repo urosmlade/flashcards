@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CategoriesService } from '@categories/service/categories.service';
 import { map, Observable } from 'rxjs';
-import { CategoriesService } from '../service/categories.service';
 
 @Component({
   selector: 'app-categories-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   readonly categories$: Observable<string[]>;
 
   constructor(
@@ -17,12 +17,10 @@ export class ListComponent implements OnInit {
   ) {
     this.categories$ = this.categoriesService
       .all()
-      .pipe(map((categories) => categories.map((category) => category.title)));
+      .pipe(map(categories => categories.map(category => category.title)));
   }
 
-  ngOnInit(): void {}
-
-  navigateToCategory(category: string) {
+  navigateToCategory(category: string): void {
     this.router.navigate(['categories', category]);
   }
 }

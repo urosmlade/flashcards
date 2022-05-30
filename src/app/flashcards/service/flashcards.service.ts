@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Flashcard } from '@flashcards/flashcard.model';
 import { map, Observable } from 'rxjs';
-import { Flashcard } from '../flashcard.model';
 
 @Injectable()
 export class FlashcardsService {
@@ -9,34 +9,22 @@ export class FlashcardsService {
 
   latestFlashcards(): Observable<Flashcard[]> {
     return this.db
-      .collection('Flashcards', (q) =>
+      .collection('Flashcards', q =>
         q.where('private', '==', false).orderBy('created_at', 'desc').limit(10)
       )
       .valueChanges()
-      .pipe(
-        map((flashcards: any[]) =>
-          flashcards.map((flaschard) =>
-            FlashcardsService.toFlashcard(flaschard)
-          )
-        )
-      );
+      .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
   getPublicFlashcardsForSelectedCategory(
     categoryId: string
   ): Observable<Flashcard[]> {
     return this.db
-      .collection('Flashcards', (q) =>
+      .collection('Flashcards', q =>
         q.where('category', '==', categoryId).where('private', '==', false)
       )
       .valueChanges()
-      .pipe(
-        map((flashcards: any[]) =>
-          flashcards.map((flaschard) =>
-            FlashcardsService.toFlashcard(flaschard)
-          )
-        )
-      );
+      .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
   getPrivateFlashcardsForSelectedCategoryByLoggedInUser(
@@ -44,20 +32,14 @@ export class FlashcardsService {
     userId: string
   ): Observable<Flashcard[]> {
     return this.db
-      .collection('Flashcards', (q) =>
+      .collection('Flashcards', q =>
         q
           .where('category', '==', categoryId)
           .where('author_id', '==', userId)
           .where('private', '==', true)
       )
       .valueChanges()
-      .pipe(
-        map((flashcards: any[]) =>
-          flashcards.map((flaschard) =>
-            FlashcardsService.toFlashcard(flaschard)
-          )
-        )
-      );
+      .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
   getFlashcardsForSelectedGroup(
@@ -65,54 +47,36 @@ export class FlashcardsService {
     userId: string
   ): Observable<Flashcard[]> {
     return this.db
-      .collection('Flashcards', (q) =>
+      .collection('Flashcards', q =>
         q.where('author_id', '==', userId).where('group', '==', groupId)
       )
       .valueChanges()
-      .pipe(
-        map((flashcards: any[]) =>
-          flashcards.map((flashcard) =>
-            FlashcardsService.toFlashcard(flashcard)
-          )
-        )
-      );
+      .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
   getFlashcardsForLoggedInUser(userId: string): Observable<Flashcard[]> {
     return this.db
-      .collection('Flashcards', (q) => q.where('author_id', '==', userId))
+      .collection('Flashcards', q => q.where('author_id', '==', userId))
       .valueChanges()
-      .pipe(
-        map((flashcards: any[]) =>
-          flashcards.map((flaschard) =>
-            FlashcardsService.toFlashcard(flaschard)
-          )
-        )
-      );
+      .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
-  getFlashcardsByAnotherUser(authorId: string) {
+  getFlashcardsByAnotherUser(authorId: string): Observable<Flashcard[]> {
     return this.db
-      .collection('Flashcards', (q) =>
+      .collection('Flashcards', q =>
         q.where('author_id', '==', authorId).where('private', '==', false)
       )
       .valueChanges()
-      .pipe(
-        map((flashcards: any[]) =>
-          flashcards.map((flaschard) =>
-            FlashcardsService.toFlashcard(flaschard)
-          )
-        )
-      );
+      .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
   getAuthorData(authorId: string) {
     return this.db
-      .collection('users', (q) => q.where('uid', '==', authorId))
+      .collection('users', q => q.where('uid', '==', authorId))
       .get();
   }
 
-  addFlashcard(flashcard: Flashcard) {
+  addFlashcard(flashcard: Flashcard): Promise<any> {
     const id = this.db.createId();
 
     const f = {
@@ -124,7 +88,7 @@ export class FlashcardsService {
       private: flashcard.isPrivate,
       group: flashcard.group,
       id: id,
-      created_at: new Date(),
+      created_at: new Date()
     };
 
     return new Promise<any>((resolve, reject) => {
@@ -133,7 +97,7 @@ export class FlashcardsService {
     });
   }
 
-  updateFlashcard(flashcard: Flashcard) {
+  updateFlashcard(flashcard: Flashcard): Promise<void> {
     return this.db.collection('Flashcards').doc(flashcard.id).set({
       id: flashcard.id,
       answer: flashcard.answer.trim(),
@@ -142,12 +106,18 @@ export class FlashcardsService {
       category: flashcard.category,
       group: flashcard.group,
       private: flashcard.isPrivate,
-      question: flashcard.question.trim(),
+      question: flashcard.question.trim()
     });
   }
 
-  removeFlashcard(id: string) {
+  removeFlashcard(id: string): Promise<void> {
     return this.db.collection('Flashcards').doc(id).delete();
+  }
+
+  private static toFlashcardArray(flashcards: any[]): Flashcard[] {
+    return flashcards.map(flashcard =>
+      FlashcardsService.toFlashcard(flashcard)
+    );
   }
 
   private static toFlashcard(obj: any): Flashcard {

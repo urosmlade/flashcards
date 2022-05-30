@@ -1,17 +1,16 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '@auth/service/auth.service';
+import { GroupsService } from '@groups/service/groups.service';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, switchMap, take } from 'rxjs';
-import { AuthService } from 'src/app/auth/service/auth.service';
-import { FlashcardsService } from 'src/app/flashcards/service/flashcards.service';
-import { GroupsService } from '../service/groups.service';
+import { Observable, Subject, Subscription, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-group-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss'],
+  styleUrls: ['./add.component.scss']
 })
-export class AddComponent implements OnInit {
+export class AddComponent implements OnDestroy {
   @Input() resetForm$?: Observable<boolean>;
   @Input() showCancelButton?: boolean;
   @Output() readonly added$: Observable<boolean>;
@@ -20,30 +19,33 @@ export class AddComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly flashcardsService: FlashcardsService,
     private readonly toastrService: ToastrService,
     private readonly groupsService: GroupsService
   ) {
     this.groupForm = new FormGroup({
-      title: this.titleControl,
+      title: this.titleControl
     });
 
     this.added$ = this.addedSubject$.asObservable();
     this.canceled$ = this.canceledSubject$.asObservable();
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.subsink.unsubscribe();
+  }
 
-  addNewGroup() {
-    this.authService.uid$
-      .pipe(
-        take(1),
-        switchMap((id) => this.groupsService.add(this.titleControl.value, id))
-      )
-      .subscribe(() => {
-        this.toastrService.success('Group added');
-        this.addedSubject$.next(true);
-      });
+  addNewGroup(): void {
+    this.subsink.add(
+      this.authService.uid$
+        .pipe(
+          take(1),
+          switchMap(id => this.groupsService.add(this.titleControl.value, id))
+        )
+        .subscribe(() => {
+          this.toastrService.success('Group added');
+          this.addedSubject$.next(true);
+        })
+    );
   }
 
   cancel() {
@@ -53,7 +55,10 @@ export class AddComponent implements OnInit {
 
   private readonly addedSubject$ = new Subject<boolean>();
   private readonly canceledSubject$ = new Subject<boolean>();
+
+  private readonly subsink = new Subscription();
+
   private readonly titleControl = new FormControl(undefined, [
-    Validators.required,
+    Validators.required
   ]);
 }

@@ -2,56 +2,56 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { ListComponent as CategoriesListComponent } from '@categories/list/list.component';
+import { OneComponent as OneCategoryComponent } from '@categories/one/one.component';
+import { CategoriesService } from '@categories/service/categories.service';
+import { AddComponent } from '@flashcards/add/add.component';
+import { CardDetailsComponent } from '@flashcards/card-details/card-details.component';
+import { CardComponent } from '@flashcards/card/card.component';
+import { EditFlashcardComponent } from '@flashcards/edit-flashcard/edit-flashcard.component';
+import { HomeComponent } from '@flashcards/home/home.component';
+import { ListComponent } from '@flashcards/list/list.component';
+import { RemoveFlashcardComponent } from '@flashcards/remove-flashcard/remove-flashcard.component';
+import { FlashcardsService } from '@flashcards/service/flashcards.service';
+import { SingleCardViewComponent } from '@flashcards/single-card-view/single-card-view.component';
+import { ViewComponent } from '@flashcards/view/view.component';
+import { AddComponent as AddGroupComponent } from '@groups/add/add.component';
+import { ListComponent as GroupsListComponent } from '@groups/list/list.component';
+import { OneComponent as OneGroupComponent } from '@groups/one/one.component';
+import { GroupsService } from '@groups/service/groups.service';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ListComponent as CategoriesListComponent } from '../categories/list/list.component';
-import { OneComponent as OneCategoryComponent } from '../categories/one/one.component';
-import { CategoriesService } from '../categories/service/categories.service';
-import { AddComponent as AddGroupComponent } from '../groups/add/add.component';
-import { ListComponent as GroupsListComponent } from '../groups/list/list.component';
-import { OneComponent as OneGroupComponent } from '../groups/one/one.component';
-import { GroupsService } from '../groups/service/groups.service';
-import { ProfileComponent } from '../profile/profile.component';
-import { AddComponent } from './add/add.component';
-import { CardDetailsComponent } from './card-details/card-details.component';
-import { CardComponent } from './card/card.component';
-import { EditFlashcardComponent } from './edit-flashcard/edit-flashcard.component';
-import { HomeComponent } from './home/home.component';
-import { ListComponent } from './list/list.component';
-import { RemoveFlashcardComponent } from './remove-flashcard/remove-flashcard.component';
-import { FlashcardsService } from './service/flashcards.service';
-import { SingleCardViewComponent } from './single-card-view/single-card-view.component';
-import { ViewComponent } from './view/view.component';
+import { ProfileComponent } from '@profile/profile.component';
 
 const routes: Routes = [
   {
     path: 'flashcards',
-    component: HomeComponent,
+    component: HomeComponent
   },
   {
     path: 'user/:userId',
-    component: ProfileComponent,
+    component: ProfileComponent
   },
   {
     path: 'add',
-    component: AddComponent,
+    component: AddComponent
   },
   {
     path: 'categories',
-    component: CategoriesListComponent,
+    component: CategoriesListComponent
   },
   {
     path: 'categories/:id',
-    component: OneCategoryComponent,
+    component: OneCategoryComponent
   },
   {
     path: 'groups',
-    component: GroupsListComponent,
+    component: GroupsListComponent
   },
   {
     path: 'groups/:id',
-    component: OneGroupComponent,
-  },
+    component: OneGroupComponent
+  }
 ];
 
 @NgModule({
@@ -70,7 +70,7 @@ const routes: Routes = [
     RemoveFlashcardComponent,
     AddGroupComponent,
     SingleCardViewComponent,
-    ViewComponent,
+    ViewComponent
   ],
   imports: [
     CommonModule,
@@ -79,8 +79,8 @@ const routes: Routes = [
     NgbModalModule,
     NgSelectModule,
     NgbModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
-  providers: [FlashcardsService, CategoriesService, GroupsService],
+  providers: [FlashcardsService, CategoriesService, GroupsService]
 })
 export class FlashcardsModule {}

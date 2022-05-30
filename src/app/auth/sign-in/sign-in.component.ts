@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '@auth/service/auth.service';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss'],
+  styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   readonly signInForm: FormGroup;
 
   constructor(
@@ -17,29 +17,27 @@ export class SignInComponent implements OnInit {
   ) {
     this.signInForm = new FormGroup({
       email: this.emailControl,
-      password: this.passwordControl,
+      password: this.passwordControl
     });
   }
 
-  ngOnInit(): void {}
-
-  signInWithUsernameAndPassword() {
+  signInWithUsernameAndPassword(): void {
     this.authService.signIn(
       this.emailControl.value,
       this.passwordControl.value
     );
   }
 
-  googleAuth() {
+  googleAuth(): void {
     this.authService.googleAuth().then(() => {
       this.router.navigate(['/flashcards']);
     });
   }
 
   private readonly emailControl = new FormControl(undefined, [
-    Validators.required,
+    Validators.required
   ]);
   private readonly passwordControl = new FormControl(undefined, [
-    Validators.required,
+    Validators.required
   ]);
 }

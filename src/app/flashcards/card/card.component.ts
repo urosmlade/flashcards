@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CardDetailsComponent } from '@flashcards/card-details/card-details.component';
+import { EditFlashcardComponent } from '@flashcards/edit-flashcard/edit-flashcard.component';
+import { Flashcard } from '@flashcards/flashcard.model';
+import { RemoveFlashcardComponent } from '@flashcards/remove-flashcard/remove-flashcard.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest, map, Observable, Subject } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
-import { CardDetailsComponent } from '../card-details/card-details.component';
-import { EditFlashcardComponent } from '../edit-flashcard/edit-flashcard.component';
-import { Flashcard } from '../flashcard.model';
-import { RemoveFlashcardComponent } from '../remove-flashcard/remove-flashcard.component';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
+  styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
   @Input() flashcard?: Flashcard;
@@ -25,7 +25,7 @@ export class CardComponent implements OnInit {
 
   ngOnInit(): void {
     const flashcardAuthor$ = this.authService.uid$.pipe(
-      map((id) => {
+      map(id => {
         if (this.flashcard?.authorId) {
           return this.flashcard.authorId === id;
         } else {
@@ -36,32 +36,32 @@ export class CardComponent implements OnInit {
 
     this.shouldShowActions$ = combineLatest([
       flashcardAuthor$,
-      this.hoveredCardId$,
+      this.hoveredCardId$
     ]).pipe(
       map(([author, id]) => ({
         author: author,
-        id: id,
+        id: id
       }))
     );
   }
 
-  setHoveredCard(id?: string) {
+  setHoveredCard(id?: string): void {
     this.hoveredCardId$.next(id);
   }
 
-  openCardDetailsModal() {
+  openCardDetailsModal(): void {
     const modalRef = this.modal.open(CardDetailsComponent);
 
     modalRef.componentInstance.flashcard = this.flashcard;
   }
 
-  openEditFlashcardModal() {
+  openEditFlashcardModal(): void {
     const modalRef = this.modal.open(EditFlashcardComponent);
 
     modalRef.componentInstance.flashcard = this.flashcard;
   }
 
-  openRemoveFlashcardModal() {
+  openRemoveFlashcardModal(): void {
     const modalRef = this.modal.open(RemoveFlashcardComponent);
 
     modalRef.componentInstance.flashcard = this.flashcard;

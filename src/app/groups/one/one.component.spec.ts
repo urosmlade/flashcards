@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { OneComponent } from './one.component';
+import { OneComponent } from '@groups/one/one.component';
 
 describe('OneComponent', () => {
   let component: OneComponent;
@@ -7,7 +7,7 @@ describe('OneComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OneComponent],
+      declarations: [OneComponent]
     }).compileComponents();
   });
 

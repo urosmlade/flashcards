@@ -1,14 +1,14 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
-    AngularFirestore,
-    AngularFirestoreDocument
+  AngularFirestore,
+  AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { User } from '@auth/user';
 import * as auth from 'firebase/auth';
 import { UserInfo } from 'firebase/auth';
-import { map, Observable } from 'rxjs';
-import { User } from 'src/app/auth/user';
+import { map, Observable, tap } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -18,68 +18,57 @@ export class AuthService {
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
-    public router: Router,
-    public ngZone: NgZone
+    public router: Router
   ) {
     this.userData$ = this.afAuth.authState.pipe(
       map(
-        (user) =>
+        user =>
           ({
             uid: user?.uid,
             displayName: user?.displayName,
             email: user?.email,
-            photoURL: user?.photoURL,
+            photoURL: user?.photoURL
           } as UserInfo)
-      )
+      ),
+      tap(user => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+        } else {
+          localStorage.setItem('user', 'null');
+        }
+      })
     );
 
-    this.uid$ = this.userData$.pipe(map((user) => user.uid));
-
-    this.afAuth.authState.subscribe((user) => {
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        JSON.parse(localStorage.getItem('user')!);
-      } else {
-        localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
-      }
-    });
+    this.uid$ = this.userData$.pipe(map(user => user.uid));
   }
 
-  signIn(email: string, password: string) {
+  signIn(email: string, password: string): Promise<void> {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['flashcards']);
-        });
+      .then(() => {
+        this.router.navigate(['flashcards']);
       })
-      .catch((error) => {
+      .catch(error => {
         window.alert(error.message);
       });
   }
 
-  signUp(email: string, password: string, name: string) {
+  signUp(email: string, password: string, name: string): Promise<void> {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then(result => {
         result.user?.updateProfile({
-          displayName: name,
+          displayName: name
         });
         this.setUserData(result.user, name);
         this.router.navigate(['/flashcards']);
       })
-      .catch((error) => {
+      .catch(error => {
         window.alert(error.message);
       });
   }
 
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return Boolean(user.uid);
-  }
-
-  googleAuth() {
+  googleAuth(): Promise<void> {
     return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       if (res) {
         this.router.navigate(['flashcards']);
@@ -87,21 +76,19 @@ export class AuthService {
     });
   }
 
-  authLogin(provider: any) {
+  authLogin(provider: any): Promise<void> {
     return this.afAuth
       .signInWithPopup(provider)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['flashcards']);
-        });
+      .then(result => {
+        this.router.navigate(['flashcards']);
         this.setUserData(result.user);
       })
-      .catch((error) => {
+      .catch(error => {
         window.alert(error);
       });
   }
 
-  setUserData(user: any, name?: string) {
+  setUserData(user: any, name?: string): Promise<void> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -109,15 +96,15 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName ?? name,
-      photoURL: user.photoURL,
+      photoURL: user.photoURL
     };
 
     return userRef.set(userData, {
-      merge: true,
+      merge: true
     });
   }
 
-  signOut() {
+  signOut(): Promise<void> {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);

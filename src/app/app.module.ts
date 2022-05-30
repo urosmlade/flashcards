@@ -9,15 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@auth/guard/auth.guard';
+import { AuthService } from '@auth/service/auth.service';
+import { SignInComponent } from '@auth/sign-in/sign-in.component';
+import { SignUpComponent } from '@auth/sign-up/sign-up.component';
 import { ToastrModule } from 'ngx-toastr';
+import { AppComponent } from 'src/app/app.component';
+import { HeaderComponent } from 'src/app/header/header.component';
+import { HomeComponent } from 'src/app/home/home.component';
 import { environment } from 'src/environments/environment';
-import { AppComponent } from './app.component';
-import { AuthGuard } from './auth/guard/auth.guard';
-import { AuthService } from './auth/service/auth.service';
-import { SignInComponent } from './auth/sign-in/sign-in.component';
-import { SignUpComponent } from './auth/sign-up/sign-up.component';
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
@@ -31,11 +31,11 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: async () =>
-          (await import('src/app/flashcards/flashcards.module'))
-            .FlashcardsModule,
-      },
-    ],
-  },
+          (await import('@flashcards/flashcards.module'))
+            .FlashcardsModule
+      }
+    ]
+  }
 ];
 
 @NgModule({
@@ -44,7 +44,7 @@ const routes: Routes = [
     HomeComponent,
     SignInComponent,
     SignUpComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -58,10 +58,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppModule {}

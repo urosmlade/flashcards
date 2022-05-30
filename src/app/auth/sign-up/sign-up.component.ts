@@ -1,29 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '@auth/service/auth.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss'],
+  styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
   readonly signUpForm: FormGroup;
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly router: Router
-  ) {
+  constructor(private readonly authService: AuthService) {
     this.signUpForm = new FormGroup({
       email: this.emailControl,
       password: this.passwordControl,
-      name: this.nameControl,
+      name: this.nameControl
     });
   }
 
-  ngOnInit() {}
-
-  signUpWithEmailAndPassword() {
+  signUpWithEmailAndPassword(): void {
     this.authService.signUp(
       this.emailControl.value,
       this.passwordControl.value,
@@ -31,7 +25,7 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  googleAuth() {
+  googleAuth(): void {
     this.authService.googleAuth();
   }
 

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddComponent } from './add.component';
+import { AddComponent } from '@flashcards/add/add.component';
 
 describe('AddComponent', () => {
   let component: AddComponent;
@@ -7,7 +7,7 @@ describe('AddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddComponent],
+      declarations: [AddComponent]
     }).compileComponents();
   });
 

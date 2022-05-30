@@ -1,15 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Flashcard } from '@flashcards/flashcard.model';
+import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Flashcard } from 'src/app/flashcards/flashcard.model';
-import { FlashcardsService } from 'src/app/flashcards/service/flashcards.service';
 
 @Component({
   selector: 'app-remove-flashcard',
   templateUrl: './remove-flashcard.component.html',
-  styleUrls: ['./remove-flashcard.component.scss'],
+  styleUrls: ['./remove-flashcard.component.scss']
 })
-export class RemoveFlashcardComponent implements OnInit {
+export class RemoveFlashcardComponent {
   @Input() flashcard?: Flashcard;
 
   constructor(
@@ -18,9 +18,7 @@ export class RemoveFlashcardComponent implements OnInit {
     private readonly toastrService: ToastrService
   ) {}
 
-  ngOnInit(): void {}
-
-  delete() {
+  delete(): void {
     if (this.flashcard?.id) {
       this.flashcardsService.removeFlashcard(this.flashcard.id).then(() => {
         this.toastrService.success('Flashcard deleted');
@@ -29,7 +27,7 @@ export class RemoveFlashcardComponent implements OnInit {
     }
   }
 
-  close() {
+  close(): void {
     this.activeModal.close();
   }
 }

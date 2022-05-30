@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RemoveFlashcardComponent } from './remove-flashcard.component';
+import { RemoveFlashcardComponent } from '@flashcards/remove-flashcard/remove-flashcard.component';
 
 describe('RemoveFlashcardComponent', () => {
   let component: RemoveFlashcardComponent;

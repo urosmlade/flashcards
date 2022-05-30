@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SingleCardViewComponent } from './single-card-view.component';
+import { SingleCardViewComponent } from '@flashcards/single-card-view/single-card-view.component';
 
 describe('SingleCardViewComponent', () => {
   let component: SingleCardViewComponent;

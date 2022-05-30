@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@auth/service/auth.service';
+import { GroupsService } from '@groups/service/groups.service';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import { AuthService } from 'src/app/auth/service/auth.service';
-import { GroupsService } from '../service/groups.service';
 
 @Component({
   selector: 'app-groups-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   readonly groups$: Observable<string[]>;
 
   readonly formHidden$: Observable<boolean>;
@@ -20,32 +20,30 @@ export class ListComponent implements OnInit {
     private readonly router: Router
   ) {
     this.groups$ = this.authService.uid$.pipe(
-      switchMap((id) => this.groupsService.allByUser(id)),
-      map((groups) => groups.map((group) => group.title))
+      switchMap(id => this.groupsService.allByUser(id)),
+      map(groups => groups.map(group => group.title))
     );
 
     this.formHidden$ = this.formHiddenSubject$.asObservable();
   }
 
-  ngOnInit(): void {}
-
-  navigateToGroup(group: string) {
+  navigateToGroup(group: string): void {
     this.router.navigate(['groups', group]);
   }
 
-  showAddGroupForm() {
+  showAddGroupForm(): void {
     this.formHiddenSubject$.next(false);
   }
 
-  hideAddGroupForm() {
+  hideAddGroupForm(): void {
     this.formHiddenSubject$.next(true);
   }
 
-  groupAdded() {
+  groupAdded(): void {
     this.hideAddGroupForm();
   }
 
-  addingCanceled() {
+  addingCanceled(): void {
     this.hideAddGroupForm();
   }
 

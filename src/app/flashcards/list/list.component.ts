@@ -1,16 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Flashcard } from '@flashcards/flashcard.model';
 import { Observable } from 'rxjs';
-import { Flashcard } from 'src/app/flashcards/flashcard.model';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   @Input() flashcards$?: Observable<Flashcard[]>;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

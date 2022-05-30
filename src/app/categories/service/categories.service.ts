@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Category } from '@flashcards/category.model';
 import { map, Observable } from 'rxjs';
-import { Category } from 'src/app/flashcards/category.model';
 
 @Injectable()
 export class CategoriesService {
@@ -13,7 +13,7 @@ export class CategoriesService {
       .valueChanges()
       .pipe(
         map((categories: any[]) =>
-          categories.map((category) => CategoriesService.toCategory(category))
+          categories.map(category => CategoriesService.toCategory(category))
         )
       );
   }

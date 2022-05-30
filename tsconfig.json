@@ -18,10 +18,14 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ]
+    "lib": ["es2020", "dom"],
+    "paths": {
+      "@auth/*": ["src/app/auth/*"],
+      "@categories/*": ["src/app/categories/*"],
+      "@flashcards/*": ["src/app/flashcards/*"],
+      "@groups/*": ["src/app/groups/*"],
+      "@profile/*": ["src/app/profile/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

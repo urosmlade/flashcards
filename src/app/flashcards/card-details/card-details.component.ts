@@ -1,33 +1,39 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
+import { Flashcard } from '@flashcards/flashcard.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter } from 'rxjs';
-import { Flashcard } from '../flashcard.model';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card-details',
   templateUrl: './card-details.component.html',
-  styleUrls: ['./card-details.component.scss'],
+  styleUrls: ['./card-details.component.scss']
 })
-export class CardDetailsComponent implements OnInit {
+export class CardDetailsComponent implements OnDestroy {
   @Input() flashcard?: Flashcard;
 
   constructor(
     private readonly router: Router,
     private readonly aciveModal: NgbActiveModal
   ) {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationStart))
-      .subscribe(() => this.aciveModal.close());
+    this.subsink.add(
+      this.router.events
+        .pipe(filter(event => event instanceof NavigationStart))
+        .subscribe(() => this.aciveModal.close())
+    );
   }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.subsink.unsubscribe();
+  }
 
-  goToAuthorProfile(authorId: string) {
+  goToAuthorProfile(authorId: string): void {
     this.router.navigate(['user', authorId]);
   }
 
-  goToCategory(categoryId: string) {
+  goToCategory(categoryId: string): void {
     this.router.navigate(['categories', categoryId]);
   }
+
+  private readonly subsink = new Subscription();
 }

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Flashcard } from '@flashcards/flashcard.model';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { Flashcard } from 'src/app/flashcards/flashcard.model';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss'],
+  styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
   @Input() flashcards$?: Observable<Flashcard[]>;
@@ -17,7 +17,7 @@ export class ViewComponent implements OnInit {
 
   constructor() {
     this.listView$ = this.listViewSubject$.asObservable();
-    this.singleView$ = this.listView$.pipe(map((lv) => !lv));
+    this.singleView$ = this.listView$.pipe(map(lv => !lv));
 
     const viewType = localStorage.getItem('viewType');
 
@@ -30,7 +30,7 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.listNotEmpty$ = this.flashcards$?.pipe(
-      map((list) => list && list.length !== 0)
+      map(list => list && list.length !== 0)
     );
   }
 
