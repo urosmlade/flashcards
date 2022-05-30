@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable, switchMap, take } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
 
@@ -11,7 +10,6 @@ import { FlashcardsService } from 'src/app/services/flashcards.service';
   styleUrls: ['./groups.component.scss'],
 })
 export class GroupsComponent implements OnInit {
-  readonly groupForm: FormGroup;
   readonly groups$: Observable<string[]>;
 
   readonly formHidden$: Observable<boolean>;
@@ -21,10 +19,6 @@ export class GroupsComponent implements OnInit {
     private readonly flashcardsService: FlashcardsService,
     private readonly router: Router
   ) {
-    this.groupForm = new FormGroup({
-      title: this.titleControl,
-    });
-
     this.groups$ = this.authService.uid$.pipe(
       switchMap((id) => this.flashcardsService.getGroups(id)),
       map((groups) => groups.map((group) => group.title))
@@ -45,25 +39,15 @@ export class GroupsComponent implements OnInit {
 
   hideAddGroupForm() {
     this.formHiddenSubject$.next(true);
-    this.groupForm.reset();
   }
 
-  addNewGroup() {
-    this.authService.uid$
-      .pipe(
-        take(1),
-        switchMap((id) =>
-          this.flashcardsService.addGroup(this.titleControl.value, id)
-        )
-      )
-      .subscribe(() => {
-        this.hideAddGroupForm();
-      });
+  groupAdded() {
+    this.hideAddGroupForm();
   }
 
-  private readonly titleControl = new FormControl(undefined, [
-    Validators.required,
-  ]);
+  addingCanceled() {
+    this.hideAddGroupForm();
+  }
 
   private readonly formHiddenSubject$ = new BehaviorSubject<boolean>(true);
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, Observable, switchMap, take } from 'rxjs';
+import { map, Observable, shareReplay, switchMap, take } from 'rxjs';
 import { Flashcard } from 'src/app/flashcard.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FlashcardsService } from 'src/app/services/flashcards.service';
@@ -15,6 +15,9 @@ export class AddComponent {
 
   readonly categories$: Observable<string[]>;
   readonly groups$: Observable<string[]>;
+
+  readonly noGroups$: Observable<boolean>;
+  readonly groupsExist$: Observable<boolean>;
 
   constructor(
     private readonly flashcardsService: FlashcardsService,
@@ -34,8 +37,12 @@ export class AddComponent {
 
     this.groups$ = this.authService.uid$.pipe(
       switchMap((id) => this.flashcardsService.getGroups(id)),
-      map((groups) => groups.map((group) => group.title))
+      map((groups) => groups.map((group) => group.title)),
+      shareReplay(1)
     );
+
+    this.noGroups$ = this.groups$.pipe(map((groups) => groups.length === 0));
+    this.groupsExist$ = this.groups$.pipe(map((groups) => groups.length > 0));
   }
 
   ngOnInit(): void {}

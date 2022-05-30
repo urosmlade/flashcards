@@ -1,0 +1,24 @@
+<div>
+  <form [formGroup]="groupForm">
+    <input
+      class="form-control mb-3"
+      placeholder="Title"
+      formControlName="title"
+    />
+
+    <button
+      class="btn btn-outline-primary me-3"
+      *ngIf="showCancelButton"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="addNewGroup()"
+      [disabled]="groupForm.invalid"
+    >
+      Add
+    </button>
+  </form>
+</div>

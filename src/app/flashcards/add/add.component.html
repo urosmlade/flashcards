@@ -17,7 +17,14 @@
       placeholder="Category"
       formControlName="category"
     ></ng-select>
+    <div class="border mb-3 p-3" *ngIf="noGroups$ | async">
+      <p class="small">
+        Please create your first group. Every flashcard has to be in a group.
+      </p>
+      <app-group-add [showCancelButton]="false"></app-group-add>
+    </div>
     <ng-select
+      *ngIf="groupsExist$ | async"
       class="mb-3"
       [items]="groups$ | async"
       placeholder="Group"

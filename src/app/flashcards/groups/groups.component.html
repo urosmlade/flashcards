@@ -14,24 +14,9 @@
 </div>
 
 <ng-template #newGroup>
-  <div>
-    <form [formGroup]="groupForm">
-      <input
-        class="form-control mb-3"
-        placeholder="Title"
-        formControlName="title"
-      />
-
-      <button class="btn btn-outline-primary me-3" (click)="hideAddGroupForm()">
-        Cancel
-      </button>
-      <button
-        class="btn btn-primary"
-        (click)="addNewGroup()"
-        [disabled]="groupForm.invalid"
-      >
-        Add
-      </button>
-    </form>
-  </div>
+  <app-group-add
+    (added$)="groupAdded()"
+    (canceled$)="addingCanceled()"
+    [showCancelButton]="true"
+  ></app-group-add>
 </ng-template>
