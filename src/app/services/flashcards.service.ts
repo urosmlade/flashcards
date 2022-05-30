@@ -131,8 +131,8 @@ export class FlashcardsService {
     const id = this.db.createId();
 
     const f = {
-      question: flashcard.question,
-      answer: flashcard.answer,
+      question: flashcard.question.trim(),
+      answer: flashcard.answer.trim(),
       category: flashcard.category,
       author_id: flashcard.authorId,
       author_name: flashcard.authorName,
@@ -175,7 +175,7 @@ export class FlashcardsService {
 
   addGroup(title: string, userId: string) {
     const group = {
-      title: title,
+      title: title.trim(),
       author_id: userId,
     };
 
@@ -188,13 +188,13 @@ export class FlashcardsService {
   updateFlashcard(flashcard: Flashcard) {
     return this.db.collection('Flashcards').doc(flashcard.id).set({
       id: flashcard.id,
-      answer: flashcard.answer,
+      answer: flashcard.answer.trim(),
       author_id: flashcard.authorId,
       author_name: flashcard.authorName,
       category: flashcard.category,
       group: flashcard.group,
       private: flashcard.isPrivate,
-      question: flashcard.question,
+      question: flashcard.question.trim(),
     });
   }
 
