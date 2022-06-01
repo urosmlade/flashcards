@@ -7,14 +7,7 @@ import { Group } from '@flashcards/group.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { GroupsService } from '@groups/service/groups.service';
 import { ToastrService } from 'ngx-toastr';
-import {
-  map,
-  Observable,
-  shareReplay,
-  Subscription,
-  switchMap,
-  take
-} from 'rxjs';
+import { map, Observable, Subscription, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-add',
@@ -51,8 +44,7 @@ export class AddComponent implements OnDestroy {
       .pipe(map(categories => categories.map(category => category.title)));
 
     this.groups$ = this.authService.uid$.pipe(
-      switchMap(id => this.groupsService.allByUser(id)),
-      shareReplay(1)
+      switchMap(id => this.groupsService.allByUser(id))
     );
 
     this.noGroups$ = this.groups$.pipe(map(groups => groups.length === 0));
@@ -75,8 +67,7 @@ export class AddComponent implements OnDestroy {
               this.categoryControl.value,
               uid,
               this.privateControl.value,
-              this.groupControl.value.id,
-              this.groupControl.value.title,
+              this.groupControl.value,
               displayName ?? '',
               new Date()
             );

@@ -18,11 +18,11 @@ export class GroupsService {
       );
   }
 
-  add(title: string, userId: string): Promise<any> {
+  add(name: string, userId: string): Promise<any> {
     const id = this.db.createId();
 
     const group = {
-      title: title.trim(),
+      name: name.trim(),
       author_id: userId,
       id: id
     };
@@ -34,6 +34,6 @@ export class GroupsService {
   }
 
   private static toGroup(obj: any): Group {
-    return new Group(obj['id'], obj['title'], obj['author_id']);
+    return new Group(obj['id'], obj['name'], obj['author_id']);
   }
 }

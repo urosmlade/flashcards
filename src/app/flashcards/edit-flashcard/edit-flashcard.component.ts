@@ -59,21 +59,25 @@ export class EditFlashcardComponent implements OnInit {
       question: this.flashcard?.question,
       answer: this.flashcard?.answer,
       category: this.flashcard?.category,
-      group: this.flashcard?.groupName,
+      group: this.flashcard?.group,
       private: this.flashcard?.isPrivate
     });
   }
 
   edit(): void {
     if (this.flashcard) {
+      const group = new Group(
+        this.groupControl.value.id,
+        this.groupControl.value.name,
+        this.groupControl.value.authorId
+      );
       const editedFlashcard = new Flashcard(
         this.questionControl.value,
         this.answerControl.value,
         this.categoryControl.value,
         this.flashcard?.authorId,
         this.privateControl.value,
-        this.groupControl.value.id,
-        this.groupControl.value.title,
+        group,
         this.flashcard?.authorName,
         this.flashcard.createdAt,
         this.flashcard?.id

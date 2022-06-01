@@ -1,3 +1,5 @@
+import { Group } from '@flashcards/group.model';
+
 export class Flashcard {
   constructor(
     readonly question: string,
@@ -5,8 +7,7 @@ export class Flashcard {
     readonly category: string,
     readonly authorId: string,
     readonly isPrivate: boolean,
-    readonly groupId: string,
-    readonly groupName: string,
+    readonly group: Group,
     readonly authorName: string,
     readonly createdAt: Date,
     readonly id?: string

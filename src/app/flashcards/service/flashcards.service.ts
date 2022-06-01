@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Flashcard } from '@flashcards/flashcard.model';
+import { Group } from '@flashcards/group.model';
 import { map, Observable } from 'rxjs';
 
 @Injectable()
@@ -86,8 +87,8 @@ export class FlashcardsService {
       'author_id': flashcard.authorId,
       'author_name': flashcard.authorName,
       'private': flashcard.isPrivate,
-      'group_id': flashcard.groupId,
-      'group_name': flashcard.groupName,
+      'group_id': flashcard.group.id,
+      'group_name': flashcard.group.name,
       'id': id,
       'created_at': flashcard.createdAt
     };
@@ -106,8 +107,8 @@ export class FlashcardsService {
       'author_id': flashcard.authorId,
       'author_name': flashcard.authorName,
       'private': flashcard.isPrivate,
-      'group_id': flashcard.groupId,
-      'group_name': flashcard.groupName,
+      'group_id': flashcard.group.id,
+      'group_name': flashcard.group.name,
       'id': flashcard.id,
       'created_at': flashcard.createdAt
     });
@@ -123,6 +124,10 @@ export class FlashcardsService {
     );
   }
 
+  private static toGroup(obj: any): Group {
+    return new Group(obj['id'], obj['group_name'], obj['author_id']);
+  }
+
   private static toFlashcard(obj: any): Flashcard {
     return new Flashcard(
       obj['question'],
@@ -130,8 +135,7 @@ export class FlashcardsService {
       obj['category'],
       obj['author_id'],
       obj['private'],
-      obj['group_id'],
-      obj['group_name'],
+      FlashcardsService.toGroup(obj),
       obj['author_name'],
       obj['created_at'],
       obj['id']
