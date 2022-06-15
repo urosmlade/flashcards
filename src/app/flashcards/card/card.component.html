@@ -8,7 +8,7 @@
   (mouseleave)="setHoveredCard(undefined)"
 >
   <div (click)="openCardDetailsModal()" class="flex-grow-1">
-    <h5>{{ flashcard.question | slice: 0:50 }}</h5>
+    <h5>{{ flashcard.question | slice: 0:20 }}</h5>
   </div>
   <div
     *ngIf="shouldShowActions$ | async as showActions"

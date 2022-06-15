@@ -25,30 +25,27 @@ export class ProfileComponent {
     private readonly flashcardsService: FlashcardsService,
     private readonly route: ActivatedRoute
   ) {
-    const userId$ = this.route.params.pipe(map(p => p.userId));
+    const routeUserId$ = this.route.params.pipe(map(p => p.userId));
 
-    this.user$ = userId$.pipe(
+    this.user$ = routeUserId$.pipe(
       switchMap(id => this.flashcardsService.getAuthorData(id)),
       map(user => user.docs[0].data() as UserInfo)
     );
 
-    this.flashcards$ = userId$.pipe(
-      switchMap(id => this.flashcardsService.getFlashcardsByAnotherUser(id))
-    );
-
-    this.isOwnProfile$ = combineLatest([userId$, this.authService.uid$]).pipe(
-      map(([uid, id]) => {
-        if (!id) {
-          return true;
-        }
-
-        if (uid === id) {
-          return true;
-        }
-
-        return false;
+    this.flashcards$ = combineLatest([
+      routeUserId$,
+      this.authService.uid$
+    ]).pipe(
+      switchMap(([routeId, userId]) => {
+        const id = routeId === userId ? userId : routeId;
+        return this.flashcardsService.getFlashcardsByUser(id);
       })
     );
+
+    this.isOwnProfile$ = combineLatest([
+      routeUserId$,
+      this.authService.uid$
+    ]).pipe(map(([uid, id]) => uid === id));
   }
 
   signOut(): void {
