@@ -55,7 +55,14 @@ export class FlashcardsService {
       .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
-  getFlashcardsByUser(authorId: string): Observable<Flashcard[]> {
+  getFlashcardsForLoggedInUser(userId: string): Observable<Flashcard[]> {
+    return this.db
+      .collection('Flashcards', q => q.where('author_id', '==', userId))
+      .valueChanges()
+      .pipe(map(FlashcardsService.toFlashcardArray));
+  }
+
+  getFlashcardsByAnotherUser(authorId: string): Observable<Flashcard[]> {
     return this.db
       .collection('Flashcards', q =>
         q.where('author_id', '==', authorId).where('private', '==', false)

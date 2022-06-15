@@ -37,8 +37,11 @@ export class ProfileComponent {
       this.authService.uid$
     ]).pipe(
       switchMap(([routeId, userId]) => {
-        const id = routeId === userId ? userId : routeId;
-        return this.flashcardsService.getFlashcardsByUser(id);
+        if (routeId === userId) {
+          return this.flashcardsService.getFlashcardsForLoggedInUser(userId);
+        } else {
+          return this.flashcardsService.getFlashcardsByAnotherUser(routeId);
+        }
       })
     );
 
