@@ -27,10 +27,6 @@ export class SignUpComponent {
     );
   }
 
-  googleAuth(): void {
-    this.authService.googleAuth();
-  }
-
   private readonly emailControl = new FormControl(undefined);
   private readonly passwordControl = new FormControl(undefined);
   private readonly nameControl = new FormControl(undefined);
