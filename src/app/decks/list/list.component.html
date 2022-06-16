@@ -1,0 +1,31 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page">
+      <a [routerLink]="['/flashcards']">Home</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Decks</li>
+  </ol>
+</nav>
+
+<div *ngIf="formHidden$ | async; else newDeck">
+  <button class="btn btn-outline-primary" (click)="showAddDeckForm()">
+    Add a new Deck
+  </button>
+</div>
+
+<div *ngFor="let deck of decks$ | async">
+  <div
+    class="border p-3 my-3 rounded shadow-sm cursor-pointer"
+    (click)="navigateToDeck(deck.id)"
+  >
+    {{ deck.name }}
+  </div>
+</div>
+
+<ng-template #newDeck>
+  <app-deck-add
+    (added$)="deckAdded()"
+    (canceled$)="addingCanceled()"
+    [showCancelButton]="true"
+  ></app-deck-add>
+</ng-template>

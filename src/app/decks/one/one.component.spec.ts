@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { OneComponent } from '@groups/one/one.component';
+import { OneComponent } from '@decks/one/one.component';
 
 describe('OneComponent', () => {
   let component: OneComponent;

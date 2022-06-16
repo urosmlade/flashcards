@@ -1,12 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  Output
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth/service/auth.service';
-import { GroupsService } from '@groups/service/groups.service';
+import { DecksService } from '@decks/service/decks.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, Subscription, switchMap, take } from 'rxjs';
 
 @Component({
-  selector: 'app-group-add',
+  selector: 'app-deck-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -16,14 +22,14 @@ export class AddComponent implements OnDestroy {
   @Input() showCancelButton?: boolean;
   @Output() readonly added$: Observable<boolean>;
   @Output() readonly canceled$: Observable<boolean>;
-  readonly groupForm: FormGroup;
+  readonly deckForm: FormGroup;
 
   constructor(
     private readonly authService: AuthService,
     private readonly toastrService: ToastrService,
-    private readonly groupsService: GroupsService
+    private readonly decksService: DecksService
   ) {
-    this.groupForm = new FormGroup({
+    this.deckForm = new FormGroup({
       title: this.titleControl
     });
 
@@ -35,15 +41,15 @@ export class AddComponent implements OnDestroy {
     this.subsink.unsubscribe();
   }
 
-  addNewGroup(): void {
+  addNewDeck(): void {
     this.subsink.add(
       this.authService.uid$
         .pipe(
           take(1),
-          switchMap(id => this.groupsService.add(this.titleControl.value, id))
+          switchMap(id => this.decksService.add(this.titleControl.value, id))
         )
         .subscribe(() => {
-          this.toastrService.success('Group added');
+          this.toastrService.success('Deck added');
           this.addedSubject$.next(true);
         })
     );

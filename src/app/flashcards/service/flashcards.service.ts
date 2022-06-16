@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Deck } from '@flashcards/deck.model';
 import { Flashcard } from '@flashcards/flashcard.model';
-import { Group } from '@flashcards/group.model';
 import { map, Observable } from 'rxjs';
 
 @Injectable()
@@ -43,13 +43,13 @@ export class FlashcardsService {
       .pipe(map(FlashcardsService.toFlashcardArray));
   }
 
-  getFlashcardsForSelectedGroup(
-    groupId: string,
+  getFlashcardsForSelectedDeck(
+    deckId: string,
     userId: string
   ): Observable<Flashcard[]> {
     return this.db
       .collection('Flashcards', q =>
-        q.where('author_id', '==', userId).where('group_id', '==', groupId)
+        q.where('author_id', '==', userId).where('deck_id', '==', deckId)
       )
       .valueChanges()
       .pipe(map(FlashcardsService.toFlashcardArray));
@@ -87,8 +87,8 @@ export class FlashcardsService {
       'author_id': flashcard.authorId,
       'author_name': flashcard.authorName,
       'private': flashcard.isPrivate,
-      'group_id': flashcard.group.id,
-      'group_name': flashcard.group.name,
+      'deck_id': flashcard.deck.id,
+      'deck_name': flashcard.deck.name,
       'id': id,
       'created_at': flashcard.createdAt
     };
@@ -107,8 +107,8 @@ export class FlashcardsService {
       'author_id': flashcard.authorId,
       'author_name': flashcard.authorName,
       'private': flashcard.isPrivate,
-      'group_id': flashcard.group.id,
-      'group_name': flashcard.group.name,
+      'deck_id': flashcard.deck.id,
+      'deck_name': flashcard.deck.name,
       'id': flashcard.id,
       'created_at': flashcard.createdAt
     });
@@ -124,8 +124,8 @@ export class FlashcardsService {
     );
   }
 
-  private static toGroup(obj: any): Group {
-    return new Group(obj['id'], obj['group_name'], obj['author_id']);
+  private static toDeck(obj: any): Deck {
+    return new Deck(obj['id'], obj['deck_name'], obj['author_id']);
   }
 
   private static toFlashcard(obj: any): Flashcard {
@@ -135,7 +135,7 @@ export class FlashcardsService {
       obj['category'],
       obj['author_id'],
       obj['private'],
-      FlashcardsService.toGroup(obj),
+      FlashcardsService.toDeck(obj),
       obj['author_name'],
       obj['created_at'],
       obj['id']

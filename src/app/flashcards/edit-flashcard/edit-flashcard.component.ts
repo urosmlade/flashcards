@@ -7,10 +7,10 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth/service/auth.service';
 import { CategoriesService } from '@categories/service/categories.service';
+import { DecksService } from '@decks/service/decks.service';
+import { Deck } from '@flashcards/deck.model';
 import { Flashcard } from '@flashcards/flashcard.model';
-import { Group } from '@flashcards/group.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
-import { GroupsService } from '@groups/service/groups.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable, switchMap } from 'rxjs';
@@ -27,7 +27,7 @@ export class EditFlashcardComponent implements OnInit {
   readonly flashcardForm: FormGroup;
 
   readonly categories$: Observable<string[]>;
-  readonly groups$: Observable<Group[]>;
+  readonly decks$: Observable<Deck[]>;
 
   constructor(
     private readonly flashcardsService: FlashcardsService,
@@ -35,13 +35,13 @@ export class EditFlashcardComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly activeModal: NgbActiveModal,
     private readonly toastrService: ToastrService,
-    private readonly groupsService: GroupsService
+    private readonly decksService: DecksService
   ) {
     this.flashcardForm = new FormGroup({
       question: this.questionControl,
       answer: this.answerControl,
       category: this.categoryControl,
-      group: this.groupControl,
+      deck: this.deckControl,
       private: this.privateControl
     });
 
@@ -49,8 +49,8 @@ export class EditFlashcardComponent implements OnInit {
       .all()
       .pipe(map(categories => categories.map(category => category.title)));
 
-    this.groups$ = this.authService.uid$.pipe(
-      switchMap(id => this.groupsService.allByUser(id))
+    this.decks$ = this.authService.uid$.pipe(
+      switchMap(id => this.decksService.allByUser(id))
     );
   }
 
@@ -59,17 +59,17 @@ export class EditFlashcardComponent implements OnInit {
       question: this.flashcard?.question,
       answer: this.flashcard?.answer,
       category: this.flashcard?.category,
-      group: this.flashcard?.group,
+      deck: this.flashcard?.deck,
       private: this.flashcard?.isPrivate
     });
   }
 
   edit(): void {
     if (this.flashcard) {
-      const group = new Group(
-        this.groupControl.value.id,
-        this.groupControl.value.name,
-        this.groupControl.value.authorId
+      const deck = new Deck(
+        this.deckControl.value.id,
+        this.deckControl.value.name,
+        this.deckControl.value.authorId
       );
       const editedFlashcard = new Flashcard(
         this.questionControl.value,
@@ -77,7 +77,7 @@ export class EditFlashcardComponent implements OnInit {
         this.categoryControl.value,
         this.flashcard?.authorId,
         this.privateControl.value,
-        group,
+        deck,
         this.flashcard?.authorName,
         this.flashcard.createdAt,
         this.flashcard?.id
@@ -99,7 +99,7 @@ export class EditFlashcardComponent implements OnInit {
   private readonly categoryControl = new FormControl(undefined, [
     Validators.required
   ]);
-  private readonly groupControl = new FormControl(undefined, [
+  private readonly deckControl = new FormControl(undefined, [
     Validators.required
   ]);
   private readonly privateControl = new FormControl(false, [

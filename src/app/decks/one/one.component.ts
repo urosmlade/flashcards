@@ -7,7 +7,7 @@ import { map, Observable, switchMap } from 'rxjs';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 
 @Component({
-  selector: 'app-flashcards-per-group',
+  selector: 'app-flashcards-per-deck',
   templateUrl: './one.component.html',
   styleUrls: ['./one.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,19 +15,19 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 export class OneComponent {
   readonly flashcards$: Observable<Flashcard[]>;
 
-  readonly selectedGroupId$: Observable<string>;
+  readonly selectedDeckId$: Observable<string>;
 
   constructor(
     private readonly authService: AuthService,
     private readonly flashcardsService: FlashcardsService,
     private readonly route: ActivatedRoute
   ) {
-    this.selectedGroupId$ = this.route.params.pipe(map(p => p.id));
+    this.selectedDeckId$ = this.route.params.pipe(map(p => p.id));
     const userId$ = this.authService.uid$;
 
-    this.flashcards$ = combineLatest([this.selectedGroupId$, userId$]).pipe(
+    this.flashcards$ = combineLatest([this.selectedDeckId$, userId$]).pipe(
       switchMap(([gid, uid]) =>
-        this.flashcardsService.getFlashcardsForSelectedGroup(gid, uid)
+        this.flashcardsService.getFlashcardsForSelectedDeck(gid, uid)
       )
     );
   }

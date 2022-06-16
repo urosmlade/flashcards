@@ -1,4 +1,4 @@
-export class Group {
+export class Deck {
   constructor(
     readonly id: string,
     readonly name: string,

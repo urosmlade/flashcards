@@ -25,18 +25,18 @@
       placeholder="Category"
       formControlName="category"
     ></ng-select>
-    <div class="border mb-3 p-3" *ngIf="noGroups$ | async">
+    <div class="border mb-3 p-3" *ngIf="noDecks$ | async">
       <p class="small">
-        Please create your first group. Every flashcard has to be in a group.
+        Please create your first deck. Every flashcard has to be in a deck.
       </p>
-      <app-group-add [showCancelButton]="false"></app-group-add>
+      <app-deck-add [showCancelButton]="false"></app-deck-add>
     </div>
     <ng-select
-      *ngIf="groupsExist$ | async"
+      *ngIf="decksExist$ | async"
       class="mb-3"
-      [items]="groups$ | async"
-      placeholder="Group"
-      formControlName="group"
+      [items]="decks$ | async"
+      placeholder="Deck"
+      formControlName="deck"
       bindLabel="name"
     ></ng-select>
     <div class="form-check mb-3">

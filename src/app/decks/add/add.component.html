@@ -1,5 +1,5 @@
 <div>
-  <form [formGroup]="groupForm">
+  <form [formGroup]="deckForm">
     <input
       class="form-control mb-3"
       placeholder="Title"
@@ -15,8 +15,8 @@
     </button>
     <button
       class="btn btn-primary"
-      (click)="addNewGroup()"
-      [disabled]="groupForm.invalid"
+      (click)="addNewDeck()"
+      [disabled]="deckForm.invalid"
     >
       Add
     </button>

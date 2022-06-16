@@ -5,7 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListComponent as CategoriesListComponent } from '@categories/list/list.component';
 import { OneComponent as OneCategoryComponent } from '@categories/one/one.component';
 import { CategoriesService } from '@categories/service/categories.service';
-import { AddComponent } from '@flashcards/add/add.component';
+import { AddComponent as AddDeckComponent } from '@decks/add/add.component';
+import { ListComponent as DecksListComponent } from '@decks/list/list.component';
+import { OneComponent as OneDeckComponent } from '@decks/one/one.component';
+import { DecksService } from '@decks/service/decks.service';
+import { AddComponent as AddFlashcadComponent } from '@flashcards/add/add.component';
 import { CardDetailsComponent } from '@flashcards/card-details/card-details.component';
 import { CardComponent } from '@flashcards/card/card.component';
 import { EditFlashcardComponent } from '@flashcards/edit-flashcard/edit-flashcard.component';
@@ -15,10 +19,6 @@ import { RemoveFlashcardComponent } from '@flashcards/remove-flashcard/remove-fl
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { SingleCardViewComponent } from '@flashcards/single-card-view/single-card-view.component';
 import { ViewComponent } from '@flashcards/view/view.component';
-import { AddComponent as AddGroupComponent } from '@groups/add/add.component';
-import { ListComponent as GroupsListComponent } from '@groups/list/list.component';
-import { OneComponent as OneGroupComponent } from '@groups/one/one.component';
-import { GroupsService } from '@groups/service/groups.service';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileComponent } from '@profile/profile.component';
@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'add',
-    component: AddComponent
+    component: AddFlashcadComponent
   },
   {
     path: 'categories',
@@ -45,12 +45,12 @@ const routes: Routes = [
     component: OneCategoryComponent
   },
   {
-    path: 'groups',
-    component: GroupsListComponent
+    path: 'decks',
+    component: DecksListComponent
   },
   {
-    path: 'groups/:id',
-    component: OneGroupComponent
+    path: 'decks/:id',
+    component: OneDeckComponent
   }
 ];
 
@@ -59,16 +59,16 @@ const routes: Routes = [
     ListComponent,
     CardComponent,
     CardDetailsComponent,
-    AddComponent,
+    AddFlashcadComponent,
     ProfileComponent,
     HomeComponent,
     CategoriesListComponent,
-    OneGroupComponent,
+    OneDeckComponent,
     OneCategoryComponent,
-    GroupsListComponent,
+    DecksListComponent,
     EditFlashcardComponent,
     RemoveFlashcardComponent,
-    AddGroupComponent,
+    AddDeckComponent,
     SingleCardViewComponent,
     ViewComponent
   ],
@@ -81,6 +81,6 @@ const routes: Routes = [
     NgbModule,
     RouterModule.forChild(routes)
   ],
-  providers: [FlashcardsService, CategoriesService, GroupsService]
+  providers: [FlashcardsService, CategoriesService, DecksService]
 })
 export class FlashcardsModule {}

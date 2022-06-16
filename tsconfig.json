@@ -23,7 +23,7 @@
       "@auth/*": ["src/app/auth/*"],
       "@categories/*": ["src/app/categories/*"],
       "@flashcards/*": ["src/app/flashcards/*"],
-      "@groups/*": ["src/app/groups/*"],
+      "@decks/*": ["src/app/decks/*"],
       "@profile/*": ["src/app/profile/*"]
     }
   },
