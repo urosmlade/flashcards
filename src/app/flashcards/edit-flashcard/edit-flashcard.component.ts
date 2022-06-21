@@ -13,7 +13,7 @@ import { Flashcard } from '@flashcards/flashcard.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, shareReplay, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-edit-flashcard',
@@ -45,12 +45,14 @@ export class EditFlashcardComponent implements OnInit {
       private: this.privateControl
     });
 
-    this.categories$ = this.categoriesService
-      .all()
-      .pipe(map(categories => categories.map(category => category.title)));
+    this.categories$ = this.categoriesService.all().pipe(
+      map(categories => categories.map(category => category.title)),
+      shareReplay(1)
+    );
 
     this.decks$ = this.authService.uid$.pipe(
-      switchMap(id => this.decksService.allByUser(id))
+      switchMap(id => this.decksService.allByUser(id)),
+      shareReplay(1)
     );
   }
 

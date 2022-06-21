@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { CardDetailsComponent } from '@flashcards/card-details/card-details.component';
 import { EditFlashcardComponent } from '@flashcards/edit-flashcard/edit-flashcard.component';
 import { Flashcard } from '@flashcards/flashcard.model';

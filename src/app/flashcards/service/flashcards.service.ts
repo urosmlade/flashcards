@@ -125,7 +125,7 @@ export class FlashcardsService {
   }
 
   private static toDeck(obj: any): Deck {
-    return new Deck(obj['id'], obj['deck_name'], obj['author_id']);
+    return new Deck(obj['deck_id'], obj['deck_name'], obj['author_id']);
   }
 
   private static toFlashcard(obj: any): Flashcard {
