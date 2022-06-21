@@ -30,9 +30,7 @@ export class SignInComponent {
   }
 
   googleAuth(): void {
-    this.authService.googleAuth().then(() => {
-      this.router.navigate(['/flashcards']);
-    });
+    this.authService.googleAuth();
   }
 
   private readonly emailControl = new FormControl(undefined, [

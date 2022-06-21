@@ -1,5 +1,15 @@
-<div class="d-flex flex-wrap">
+<div class="d-flex flex-wrap" *ngIf="listNotEmpty$ | async; else emptyList">
   <div *ngFor="let flashcard of flashcards$ | async">
     <app-card [flashcard]="flashcard"></app-card>
   </div>
 </div>
+
+<ng-template #emptyList>
+  <div>
+    <h4>There are no flashcards</h4>
+    <p>
+      If you want to add a new Flashcard
+      <a class="fw-bold" [routerLink]="['/add']">click here.</a>
+    </p>
+  </div>
+</ng-template>

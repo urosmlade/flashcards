@@ -4,7 +4,7 @@ import { AuthService } from '@auth/service/auth.service';
 import { Flashcard } from '@flashcards/flashcard.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { UserInfo } from 'firebase/auth';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, shareReplay, switchMap } from 'rxjs';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 
 @Component({
@@ -29,7 +29,8 @@ export class ProfileComponent {
 
     this.user$ = routeUserId$.pipe(
       switchMap(id => this.flashcardsService.getAuthorData(id)),
-      map(user => user.docs[0].data() as UserInfo)
+      map(user => user.docs[0].data() as UserInfo),
+      shareReplay(1)
     );
 
     this.flashcards$ = combineLatest([

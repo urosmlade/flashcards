@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Flashcard } from '@flashcards/flashcard.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,9 @@ import { Observable } from 'rxjs';
 export class HomeComponent {
   readonly flashcards$: Observable<Flashcard[]>;
 
-  constructor(private readonly flashcardService: FlashcardsService) {
-    this.flashcards$ = this.flashcardService.latestFlashcards();
+  constructor(private readonly flashcardsService: FlashcardsService) {
+    this.flashcards$ = this.flashcardsService
+      .latestFlashcards()
+      .pipe(shareReplay(1));
   }
 }

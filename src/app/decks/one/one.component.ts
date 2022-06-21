@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth/service/auth.service';
 import { Flashcard } from '@flashcards/flashcard.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, shareReplay, switchMap } from 'rxjs';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 
 @Component({
@@ -28,7 +28,8 @@ export class OneComponent {
     this.flashcards$ = combineLatest([this.selectedDeckId$, userId$]).pipe(
       switchMap(([gid, uid]) =>
         this.flashcardsService.getFlashcardsForSelectedDeck(gid, uid)
-      )
+      ),
+      shareReplay(1)
     );
   }
 }

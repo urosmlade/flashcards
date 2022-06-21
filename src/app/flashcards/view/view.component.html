@@ -1,4 +1,4 @@
-<div *ngIf="listNotEmpty$ | async; else emptyList">
+<div *ngIf="flashcards$ | async; else emptyList">
   <div class="d-flex justify-content-end">
     <button class="btn" (click)="switchToListView()">
       <i class="bi bi-grid"></i>
@@ -17,11 +17,5 @@
 </div>
 
 <ng-template #emptyList>
-  <div>
-    <h4>There are no flashcards</h4>
-    <p>
-      If you want to add a new Flashcard
-      <a class="fw-bold" [routerLink]="['/add']">click here.</a>
-    </p>
-  </div>
+  <app-placeholder></app-placeholder>
 </ng-template>

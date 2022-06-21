@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { Flashcard } from '@flashcards/flashcard.model';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -8,6 +13,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   @Input() flashcards$?: Observable<Flashcard[]>;
+
+  listNotEmpty$?: Observable<boolean>;
+
+  ngOnInit() {
+    this.listNotEmpty$ = this.flashcards$?.pipe(
+      map(flashcards => flashcards.length !== 0)
+    );
+  }
 }

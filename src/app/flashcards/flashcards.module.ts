@@ -22,6 +22,7 @@ import { ViewComponent } from '@flashcards/view/view.component';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileComponent } from '@profile/profile.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -79,7 +80,8 @@ const routes: Routes = [
     NgbModalModule,
     NgSelectModule,
     NgbModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   providers: [FlashcardsService, CategoriesService, DecksService]
 })
