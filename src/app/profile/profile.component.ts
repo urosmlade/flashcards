@@ -43,7 +43,8 @@ export class ProfileComponent {
         } else {
           return this.flashcardsService.getFlashcardsByAnotherUser(routeId);
         }
-      })
+      }),
+      shareReplay(1)
     );
 
     this.isOwnProfile$ = combineLatest([

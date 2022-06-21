@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth/service/auth.service';
 import { Flashcard } from '@flashcards/flashcard.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
-import { combineLatest, map, Observable, switchMap } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-flashcards-per-category',
@@ -36,7 +36,8 @@ export class OneComponent {
 
         return combineLatest([publicFlashcards, privateFlashcards]);
       }),
-      map(([publicF, privateF]) => [...publicF, ...privateF])
+      map(([publicF, privateF]) => [...publicF, ...privateF]),
+      shareReplay(1)
     );
   }
 }
