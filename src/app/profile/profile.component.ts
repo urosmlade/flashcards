@@ -4,8 +4,7 @@ import { AuthService } from '@auth/service/auth.service';
 import { Flashcard } from '@flashcards/flashcard.model';
 import { FlashcardsService } from '@flashcards/service/flashcards.service';
 import { UserInfo } from 'firebase/auth';
-import { map, Observable, shareReplay, switchMap } from 'rxjs';
-import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { combineLatest, map, Observable, shareReplay, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-profile',

@@ -5,7 +5,7 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { User } from '@auth/user';
+import { User } from '@auth/user.model';
 import * as auth from 'firebase/auth';
 import { UserInfo } from 'firebase/auth';
 import { map, Observable, tap } from 'rxjs';

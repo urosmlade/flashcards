@@ -4,13 +4,13 @@ import {
   Input,
   OnInit
 } from '@angular/core';
+import { AuthService } from '@auth/service/auth.service';
 import { CardDetailsComponent } from '@flashcards/card-details/card-details.component';
 import { EditFlashcardComponent } from '@flashcards/edit-flashcard/edit-flashcard.component';
 import { Flashcard } from '@flashcards/flashcard.model';
 import { RemoveFlashcardComponent } from '@flashcards/remove-flashcard/remove-flashcard.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest, map, Observable, Subject } from 'rxjs';
-import { AuthService } from 'src/app/auth/service/auth.service';
 
 @Component({
   selector: 'app-card',
@@ -21,8 +21,7 @@ import { AuthService } from 'src/app/auth/service/auth.service';
 export class CardComponent implements OnInit {
   @Input() flashcard?: Flashcard;
 
-  shouldShowActions$?: Observable<{ author: boolean; id: string | undefined }>;
-  readonly hoveredCardId$ = new Subject<string | undefined>();
+  shouldShowActionButtons$?: Observable<boolean>;
 
   constructor(
     private readonly modal: NgbModal,
@@ -30,25 +29,14 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const flashcardAuthor$ = this.authService.uid$.pipe(
-      map(id => {
-        if (this.flashcard?.authorId) {
-          return this.flashcard.authorId === id;
-        } else {
-          return false;
-        }
-      })
+    const isFlashcardByLoggedInUser$ = this.authService.uid$.pipe(
+      map(id => this.flashcard?.authorId === id)
     );
 
-    this.shouldShowActions$ = combineLatest([
-      flashcardAuthor$,
+    this.shouldShowActionButtons$ = combineLatest([
+      isFlashcardByLoggedInUser$,
       this.hoveredCardId$
-    ]).pipe(
-      map(([author, id]) => ({
-        author: author,
-        id: id
-      }))
-    );
+    ]).pipe(map(([byAuthor, id]) => byAuthor && id === this.flashcard?.id));
   }
 
   setHoveredCard(id?: string): void {
@@ -72,4 +60,6 @@ export class CardComponent implements OnInit {
 
     modalRef.componentInstance.flashcard = this.flashcard;
   }
+
+  private readonly hoveredCardId$ = new Subject<string | undefined>();
 }

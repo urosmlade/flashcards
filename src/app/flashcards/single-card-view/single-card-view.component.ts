@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth/service/auth.service';
 import { EditFlashcardComponent } from '@flashcards/edit-flashcard/edit-flashcard.component';
@@ -20,6 +26,8 @@ export class SingleCardViewComponent implements OnInit, OnDestroy {
   readonly index$: Observable<number>;
   readonly loggedInUserId$: Observable<string>;
 
+  listNotEmpty$?: Observable<boolean>;
+
   constructor(
     private readonly authService: AuthService,
     private readonly modal: NgbModal,
@@ -36,6 +44,10 @@ export class SingleCardViewComponent implements OnInit, OnDestroy {
         .subscribe(length => {
           this.maxIndexSubject$.next(length);
         })
+    );
+
+    this.listNotEmpty$ = this.flashcards$?.pipe(
+      map(flashcards => flashcards.length !== 0)
     );
   }
 

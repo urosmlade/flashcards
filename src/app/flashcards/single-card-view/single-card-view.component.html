@@ -1,10 +1,10 @@
 <div
   class="d-flex justify-content-center mt-3"
-  *ngIf="flashcards$ | async as flashcards"
+  *ngIf="listNotEmpty$ | async; else emptyList"
 >
   <button class="btn" (click)="prevCard()"><</button>
   <div class="flex-grow-1 flex-md-grow-0">
-    <div *ngFor="let flashcard of flashcards; let i = index">
+    <div *ngFor="let flashcard of flashcards$ | async; let i = index">
       <div *ngIf="(index$ | async) === i + 1">
         <div class="p-4 border rounded shadow-sm card">
           <div class="text-center">
@@ -14,7 +14,10 @@
             <p>{{ flashcard.answer }}</p>
           </div>
           <hr />
-          <p class="small mb-2 cursor-pointer" (click)="goToCategory(flashcard.category)">
+          <p
+            class="small mb-2 cursor-pointer"
+            (click)="goToCategory(flashcard.category)"
+          >
             Category: {{ flashcard.category }}
           </p>
           <div class="d-flex flex-column flex-sm-row justify-content-between">
@@ -45,3 +48,13 @@
 
   <button class="btn" (click)="nextCard()">></button>
 </div>
+
+<ng-template #emptyList>
+  <div>
+    <h4>There are no flashcards</h4>
+    <p>
+      If you want to add a new Flashcard
+      <a class="fw-bold" [routerLink]="['/add']">click here.</a>
+    </p>
+  </div>
+</ng-template>

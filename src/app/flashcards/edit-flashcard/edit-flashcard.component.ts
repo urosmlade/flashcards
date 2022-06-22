@@ -77,12 +77,12 @@ export class EditFlashcardComponent implements OnInit {
         this.questionControl.value,
         this.answerControl.value,
         this.categoryControl.value,
-        this.flashcard?.authorId,
+        this.flashcard.authorId,
         this.privateControl.value,
         deck,
-        this.flashcard?.authorName,
+        this.flashcard.authorName,
         this.flashcard.createdAt,
-        this.flashcard?.id
+        this.flashcard.id
       );
 
       this.flashcardsService.updateFlashcard(editedFlashcard).then(() => {

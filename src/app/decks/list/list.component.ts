@@ -40,13 +40,5 @@ export class ListComponent {
     this.formHiddenSubject$.next(true);
   }
 
-  deckAdded(): void {
-    this.hideAddDeckForm();
-  }
-
-  addingCanceled(): void {
-    this.hideAddDeckForm();
-  }
-
   private readonly formHiddenSubject$ = new BehaviorSubject<boolean>(true);
 }

@@ -31,14 +31,15 @@
       </p>
       <app-deck-add [showCancelButton]="false"></app-deck-add>
     </div>
-    <ng-select
-      *ngIf="decksExist$ | async"
-      class="mb-3"
-      [items]="decks$ | async"
-      placeholder="Deck"
-      formControlName="deck"
-      bindLabel="name"
-    ></ng-select>
+    <div *ngIf="decksExist$ | async">
+      <ng-select
+        class="mb-3"
+        [items]="decks$ | async"
+        placeholder="Deck"
+        formControlName="deck"
+        bindLabel="name"
+      ></ng-select>
+    </div>
     <div class="form-check mb-3">
       <input
         class="form-check-input"

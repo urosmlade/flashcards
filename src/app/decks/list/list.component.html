@@ -24,8 +24,8 @@
 
 <ng-template #newDeck>
   <app-deck-add
-    (added$)="deckAdded()"
-    (canceled$)="addingCanceled()"
+    (added$)="hideAddDeckForm()"
+    (canceled$)="hideAddDeckForm()"
     [showCancelButton]="true"
   ></app-deck-add>
 </ng-template>
